@@ -1,4 +1,35 @@
 {
   "version": 1,
-  "items": []
+  "items": [
+    {
+      "id": "artifact_echo_bell",
+      "name": "Campana del Eco",
+      "status": "proposal",
+      "summary": "Revela resonancias ocultas en lugares antiguos."
+    },
+    {
+      "id": "artifact_tide_atlas",
+      "name": "Atlas de la Marea",
+      "status": "proposal",
+      "summary": "Conserva mapas que cambian según los recuerdos del portador."
+    },
+    {
+      "id": "artifact_sky_prism",
+      "name": "Prisma Celeste",
+      "status": "proposal",
+      "summary": "Muestra alineaciones entre fragmentos flotantes."
+    },
+    {
+      "id": "artifact_root_seed",
+      "name": "Semilla de la Trama",
+      "status": "proposal",
+      "summary": "Responde a la afinidad sin revelar su origen."
+    },
+    {
+      "id": "artifact_memory_lantern",
+      "name": "Linterna de la Memoria",
+      "status": "proposal",
+      "summary": "Ilumina detalles que el tiempo dejó casi invisibles."
+    }
+  ]
 }
