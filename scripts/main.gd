@@ -7,6 +7,8 @@ var screen_root: Control
 var character: Dictionary = {}
 
 func _ready() -> void:
+	if not WORLD_DATA.validate_all_catalogs():
+		push_error("Los catálogos de Siete Raíces no superaron la validación.")
 	_build_shell()
 	if _load_character():
 		_show_dashboard()
