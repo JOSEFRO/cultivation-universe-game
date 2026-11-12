@@ -87,7 +87,7 @@ func _update_animation(move_direction: Vector3, is_running: bool) -> void:
 
 	var horizontal_speed := Vector2(velocity.x, velocity.z).length()
 	var normalized_speed := clampf(horizontal_speed / maxf(run_speed, 0.01), 0.0, 1.0)
-	if _animation_tree.has_parameter(locomotion_blend_parameter):
+	if _animation_tree.get(locomotion_blend_parameter) != null:
 		_animation_tree.set(locomotion_blend_parameter, normalized_speed)
 
 	if _state_machine:
