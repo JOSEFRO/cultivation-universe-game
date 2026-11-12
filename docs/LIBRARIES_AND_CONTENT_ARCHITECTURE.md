@@ -24,7 +24,13 @@ data/roots.json contiene las siete raíces establecidas. Los siguientes archivos
 No se agrega contenido propuesto como canon.
 
 ## Carga y validación
-scripts/world_data.gd expone get_roots() y get_entries(category). Comprueba existencia, apertura, versión, tipo de colección, campos obligatorios e IDs duplicados dentro de cada categoría.
+scripts/world_data.gd expone get_roots(), get_entries(category) y validate_all_catalogs(). Comprueba existencia, apertura, versión, tipo de colección, campos obligatorios, estados editoriales e IDs duplicados entre todas las categorías. main.gd ejecuta la validación al iniciar.
+
+## Prueba headless
+Con Godot 4.3 o compatible, ejecutar desde la raíz del proyecto:
+godot --headless --path . --script res://tests/validate_data.gd
+
+La prueba comprueba las siete raíces, los nueve catálogos y la validación global. Debe ejecutarse en el entorno Godot antes de afirmar que el juego está validado.
 
 ## Exportación
 Los catálogos son JSON leídos desde res:// con FileAccess. En el preset de exportación de Godot se deben incluir explícitamente los archivos *.json (o todos los archivos del proyecto) para que estén en el PCK. Una ejecución dentro del editor no demuestra que los archivos estén empaquetados. Confirmar esta inclusión al crear la exportación final.
