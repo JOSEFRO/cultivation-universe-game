@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/characters/humanoid_controller.gd" id="1_controller"]
+[ext_resource type="Script" path="res://scripts/characters/three_quarter_camera_rig.gd" id="2_camera"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape_player"]
+radius = 0.38
+height = 1.8
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_preview"]
+radius = 0.38
+height = 1.8
+radial_segments = 16
+rings = 8
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
+size = Vector2(40, 40)
+
+[sub_resource type="BoxShape3D" id="BoxShape_ground"]
+size = Vector3(40, 0.2, 40)
+
+[node name="HumanoidAnimationPrototype" type="Node3D"]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="GroundMesh" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("PlaneMesh_ground")
+
+[node name="GroundCollision" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape_ground")
+position = Vector3(0, -0.1, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+rotation = Vector3(-0.8, -0.6, 0)
+shadow_enabled = true
+light_energy = 1.15
+
+[node name="Player" type="CharacterBody3D" parent="."]
+position = Vector3(0, 0.05, 0)
+script = ExtResource("1_controller")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+position = Vector3(0, 0.9, 0)
+shape = SubResource("CapsuleShape_player")
+
+[node name="PreviewBody" type="MeshInstance3D" parent="Player"]
+position = Vector3(0, 0.9, 0)
+mesh = SubResource("CapsuleMesh_preview")
+
+[node name="AnimationTree" type="AnimationTree" parent="Player"]
+active = false
+
+[node name="CameraRig" type="Node3D" parent="."]
+position = Vector3(5.5, 4.2, 7.0)
+script = ExtResource("2_camera")
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig"]
+current = true
+fov = 42.0
