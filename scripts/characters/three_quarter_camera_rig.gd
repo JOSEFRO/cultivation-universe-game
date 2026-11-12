@@ -4,7 +4,7 @@ class_name ThreeQuarterCameraRig
 ## Cámara 3/4 con seguimiento amortiguado. Mantiene el encuadre cinematográfico
 ## sin bloquear el movimiento del personaje.
 
-@export var target_path: NodePath = ^".."
+@export var target_path: NodePath = ^"../Player"
 @export var follow_offset := Vector3(5.5, 4.2, 7.0)
 @export_range(1.0, 20.0, 0.1) var follow_smoothing: float = 7.0
 @export var look_height: float = 1.25
