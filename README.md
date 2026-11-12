@@ -1,21 +1,36 @@
 # Siete Raíces — Juego
 
-Proyecto de videojuego RPG de cultivo desarrollado con **Godot 4**.
+RPG original de cultivo desarrollado con **Godot 4**. Este repositorio contiene el prototipo de videojuego del universo.
 
-## Estado
-**Prototipo inicial.** Esta primera versión contiene la escena de entrada, una interfaz base y datos iniciales del universo. Todavía no representa el juego completo.
+## Estado actual
+**Vertical slice inicial en desarrollo.** Ya existe:
+- Creación de cultivador con nombre, procedencia, afinidad y camino.
+- Códice de las siete raíces.
+- Ficha personal con reino y atributos iniciales.
+- Prácticas iniciales de meditación, entrenamiento y exploración.
+- Guardado local de personaje.
 
-## Pilares de diseño
-- Crear un cultivador con origen, afinidad y potencial propios.
-- Superar la Ceremonia de los Siete Juicios.
-- Poder seguir un camino independiente o aceptar un maestro.
-- Participar en misiones sin importar la afiliación.
-- Descubrir herencias y entidades que ocultan su verdadera naturaleza.
+Estas prácticas son una base técnica para probar el ciclo inicial; no representan el sistema definitivo de cultivo, misiones o combate.
+
+## Arquitectura de contenido
+Los catálogos JSON están en `data/`. Las siete raíces son el único catálogo con contenido narrativo inicial; maestros, reinos, artefactos, técnicas, facciones, aventuras, misiones, criaturas y civilizaciones comienzan vacíos. Consulta [docs/LIBRARIES_AND_CONTENT_ARCHITECTURE.md](docs/LIBRARIES_AND_CONTENT_ARCHITECTURE.md).
+
+## Validar datos
+Con Godot 4.3 o compatible, ejecutar desde la raíz del repositorio:
+
+```bash
+godot --headless --path . --script res://tests/validate_data.gd
+```
+
+La prueba comprueba la carga de las siete raíces, las nueve categorías y la unicidad global de IDs. No sustituye una prueba visual del juego.
 
 ## Abrir el proyecto
-1. Instala Godot 4.x.
-2. Selecciona **Importar** en el gestor de proyectos.
+1. Instala Godot 4.3 o una versión 4.x compatible.
+2. En el gestor de proyectos, selecciona **Importar**.
 3. Abre este repositorio y ejecuta `project.godot`.
 
-## Regla del mundo
-El nacimiento, el talento y un maestro pueden abrir puertas, pero no garantizan el destino.
+## Exportación web
+Consulta [docs/WEB_EXPORT.md](docs/WEB_EXPORT.md). Antes de exportar, asegúrate de incluir los archivos `*.json` en el preset de exportación.
+
+## Principio central
+Ningún personaje tiene garantizada la grandeza por su nacimiento, talento o maestro.
