@@ -2,58 +2,58 @@
   "version": 1,
   "items": [
     {
-      "id": "adventure_001",
+      "id": "adventure-001",
       "name": "Ecos de un mundo pequeño",
       "status": "proposal",
       "summary": "Una ruta de descubrimientos conecta aldeas, santuarios y los primeros misterios del continente.",
-      "region_id": "region_mortal_continents",
+      "region_id": "region-mortal-continents",
       "mission_ids": [
-        "mission_001",
-        "mission_002"
+        "mission-001",
+        "mission-002"
       ]
     },
     {
-      "id": "adventure_002",
+      "id": "adventure-002",
       "name": "La escuela de los siete juicios",
       "status": "proposal",
       "summary": "Los discípulos descubren que una escuela se sostiene tanto por sus acuerdos como por su conocimiento.",
-      "region_id": "region_sect_domains",
+      "region_id": "region-sect-domains",
       "mission_ids": [
-        "mission_003",
-        "mission_004"
+        "mission-003",
+        "mission-004"
       ]
     },
     {
-      "id": "adventure_003",
+      "id": "adventure-003",
       "name": "Memorias que trae la marea",
       "status": "proposal",
       "summary": "Las islas antiguas conservan pistas de civilizaciones que dejaron de existir.",
-      "region_id": "region_ancient_sea",
+      "region_id": "region-ancient-sea",
       "mission_ids": [
-        "mission_005",
-        "mission_006"
+        "mission-005",
+        "mission-006"
       ]
     },
     {
-      "id": "adventure_004",
+      "id": "adventure-004",
       "name": "Cartografía del cielo roto",
       "status": "proposal",
       "summary": "Los viajeros aprenden a leer rutas cambiantes en un territorio donde el espacio no es constante.",
-      "region_id": "region_fragmented_heavens",
+      "region_id": "region-fragmented-heavens",
       "mission_ids": [
-        "mission_007",
-        "mission_008"
+        "mission-007",
+        "mission-008"
       ]
     },
     {
-      "id": "adventure_005",
+      "id": "adventure-005",
       "name": "El jardín de la Trama",
       "status": "proposal",
       "summary": "El primer contacto con las raíces primordiales plantea preguntas que no se resuelven con rango.",
-      "region_id": "region_root_domain",
+      "region_id": "region-root-domain",
       "mission_ids": [
-        "mission_009",
-        "mission_010"
+        "mission-009",
+        "mission-010"
       ]
     }
   ]
