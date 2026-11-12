@@ -1,4 +1,35 @@
 {
   "version": 1,
-  "items": []
+  "items": [
+    {
+      "id": "faction_horizon",
+      "name": "Secta del Horizonte",
+      "status": "proposal",
+      "summary": "Escuela dedicada al estudio, la disciplina y la exploración."
+    },
+    {
+      "id": "faction_memory",
+      "name": "Palacio de la Memoria",
+      "status": "proposal",
+      "summary": "Custodios de archivos, relatos y registros de eras pasadas."
+    },
+    {
+      "id": "faction_mill_seals",
+      "name": "Imperio de los Mil Sellos",
+      "status": "proposal",
+      "summary": "Civilización que organiza sus territorios mediante pactos y sellos."
+    },
+    {
+      "id": "faction_last_threshold",
+      "name": "Orden del Último Umbral",
+      "status": "proposal",
+      "summary": "Observadores de cambios entre ciclos y fronteras."
+    },
+    {
+      "id": "faction_void_heirs",
+      "name": "Herederos del Vacío",
+      "status": "proposal",
+      "summary": "Viajeros que estudian espacios no definidos."
+    }
+  ]
 }
