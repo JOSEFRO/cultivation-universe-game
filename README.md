@@ -1,21 +1,31 @@
 # Siete Raíces — Juego
 
-Proyecto de videojuego RPG de cultivo desarrollado con **Godot 4**.
+RPG original de cultivo desarrollado con **Godot 4**. Este repositorio contiene el prototipo jugable independiente del sitio web del universo.
 
-## Estado
-**Prototipo inicial.** Esta primera versión contiene la escena de entrada, una interfaz base y datos iniciales del universo. Todavía no representa el juego completo.
+## Estado actual
 
-## Pilares de diseño
-- Crear un cultivador con origen, afinidad y potencial propios.
-- Superar la Ceremonia de los Siete Juicios.
-- Poder seguir un camino independiente o aceptar un maestro.
-- Participar en misiones sin importar la afiliación.
-- Descubrir herencias y entidades que ocultan su verdadera naturaleza.
+**Vertical slice inicial en desarrollo.** Ya puedes:
+- Crear un cultivador con nombre, procedencia, afinidad y camino de cultivo.
+- Consultar el códice de las siete raíces.
+- Entrar a un panel personal con reino y atributos iniciales.
+- Practicar meditación, entrenamiento y exploración para aumentar comprensión, vitalidad y hallazgos.
+- Guardar y recuperar el personaje localmente entre sesiones.
+
+Estas prácticas son sistemas de prueba para validar el ciclo base; todavía no representan el sistema definitivo de cultivo, misiones o combate.
+
+## Pilares del diseño
+- El nacimiento, el talento y un maestro no garantizan la grandeza.
+- Las afinidades abren posibilidades, no caminos obligatorios.
+- La comprensión, las decisiones y las consecuencias importan tanto como la fuerza.
+- Un cultivador puede buscar un maestro o avanzar de forma independiente.
 
 ## Abrir el proyecto
-1. Instala Godot 4.x.
-2. Selecciona **Importar** en el gestor de proyectos.
+1. Instala Godot 4.3 o una versión 4.x compatible.
+2. En el gestor de proyectos, selecciona **Importar**.
 3. Abre este repositorio y ejecuta `project.godot`.
+
+## Exportación web
+El proyecto está preparado para continuar hacia una exportación Web de Godot. Consulta [docs/WEB_EXPORT.md](docs/WEB_EXPORT.md). La exportación necesita las plantillas oficiales de Godot y debe generarse antes de desplegar en Vercel.
 
 ## Regla del mundo
 El nacimiento, el talento y un maestro pueden abrir puertas, pero no garantizan el destino.
