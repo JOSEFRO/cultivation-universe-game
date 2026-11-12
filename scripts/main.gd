@@ -14,6 +14,7 @@ func _ready() -> void:
 		_show_dashboard()
 	else:
 		_show_menu()
+	print("SIETE RAÍCES: escena principal inicializada.")
 
 func _build_shell() -> void:
 	var background := ColorRect.new()
