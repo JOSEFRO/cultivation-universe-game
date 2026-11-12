@@ -2,31 +2,31 @@
   "version": 1,
   "items": [
     {
-      "id": "master_lian",
+      "id": "master-lian",
       "name": "Maestra Lian del Horizonte",
       "status": "proposal",
       "summary": "Guía paciente que enseña a observar antes de decidir."
     },
     {
-      "id": "master_ren",
+      "id": "master-ren",
       "name": "Maestro Ren de la Memoria",
       "status": "proposal",
       "summary": "Investigador de ruinas y recuerdos fragmentados."
     },
     {
-      "id": "master_yu",
+      "id": "master-yu",
       "name": "Maestra Yu de las Siete Lámparas",
       "status": "proposal",
       "summary": "Guía de concentración, equilibrio y disciplina."
     },
     {
-      "id": "master_shen",
+      "id": "master-shen",
       "name": "Maestro Shen del Umbral",
       "status": "proposal",
       "summary": "Viajero reservado que estudia anomalías de la Trama."
     },
     {
-      "id": "master_qiao",
+      "id": "master-qiao",
       "name": "Maestra Qiao de la Raíz Viva",
       "status": "proposal",
       "summary": "Guía de cultivadores que buscan comprender la Vida."
