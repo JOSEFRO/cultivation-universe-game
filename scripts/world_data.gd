@@ -12,6 +12,7 @@ const CATALOG_PATHS := {
 	"missions": "res://data/missions.json",
 	"creatures": "res://data/creatures.json",
 	"civilizations": "res://data/civilizations.json",
+	"regions": "res://data/regions.json",
 }
 const EDITORIAL_STATUSES := ["canon", "proposal", "pending", "deprecated"]
 const CULTIVATION_PATHS := ["Cuerpo", "Alma", "Leyes", "Ruptura"]
