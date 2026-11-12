@@ -32,6 +32,10 @@ func _init() -> void:
 	var region_ids := {}
 	for region in WorldDataScript.get_entries("regions"):
 		region_ids[region["id"]] = true
+		if not ResourceLoader.exists(str(region.get("scene_path", ""))):
+			push_error("No existe la escena de región: " + str(region.get("scene_path", "")))
+			quit()
+			return
 
 	for mission in WorldDataScript.get_entries("missions"):
 		if not region_ids.has(mission.get("region_id", "")):
