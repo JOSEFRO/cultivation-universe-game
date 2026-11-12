@@ -124,7 +124,7 @@ func _show_creation() -> void:
 	layout.add_child(_label("PROCEDENCIA", 11, "#c4a575"))
 	layout.add_child(origin_select)
 	var root_select := OptionButton.new()
-	for root in WORLD_DATA.ROOTS:
+	for root in WORLD_DATA.get_roots():
 		root_select.add_item(root["name"])
 	root_select.select(0)
 	layout.add_child(_label("AFINIDAD INICIAL", 11, "#c4a575"))
@@ -206,7 +206,7 @@ func _show_codex() -> void:
 	var layout := _make_layout()
 	layout.add_child(_label("ARCHIVO DE LO PRIMORDIAL  /  CÓDICE", 12, "#d6b77f"))
 	layout.add_child(_label("Las siete raíces", 38))
-	for root in WORLD_DATA.ROOTS:
+	for root in WORLD_DATA.get_roots():
 		var block := VBoxContainer.new()
 		block.add_theme_constant_override("separation", 4)
 		block.add_child(_label(str(root["name"]).to_upper(), 14, "#e4c58e"))
