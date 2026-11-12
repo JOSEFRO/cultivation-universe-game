@@ -87,7 +87,7 @@ static func validate_all_catalogs() -> bool:
 	for root in roots:
 		all_ids[root["id"]] = true
 	for category in CATALOG_PATHS.keys():
-		var parsed := _read_json(CATALOG_PATHS[category])
+		var parsed: Variant = _read_json(CATALOG_PATHS[category])
 		if parsed == null:
 			return false
 		var raw_items: Variant = parsed.get("items", null)
