@@ -1,4 +1,35 @@
 {
   "version": 1,
-  "items": []
+  "items": [
+    {
+      "id": "civ_vale",
+      "name": "Pueblos del Valle",
+      "status": "proposal",
+      "summary": "Comunidades de los continentes mortales que conservan tradiciones locales."
+    },
+    {
+      "id": "civ_horizon",
+      "name": "Escuelas del Horizonte",
+      "status": "proposal",
+      "summary": "Red de escuelas dedicadas al aprendizaje y las pruebas de carácter."
+    },
+    {
+      "id": "civ_tide",
+      "name": "Ciudades de la Marea",
+      "status": "proposal",
+      "summary": "Asentamientos que comercian con mapas y memorias del océano antiguo."
+    },
+    {
+      "id": "civ_sky",
+      "name": "Nómadas del Cielo",
+      "status": "proposal",
+      "summary": "Comunidades que viajan entre fragmentos suspendidos."
+    },
+    {
+      "id": "civ_root",
+      "name": "Custodios de la Trama",
+      "status": "proposal",
+      "summary": "Grupos que protegen santuarios vinculados a las siete raíces."
+    }
+  ]
 }
