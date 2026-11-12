@@ -2,7 +2,7 @@
   "version": 1,
   "items": [
     {
-      "id": "region_mortal_continents",
+      "id": "region-mortal-continents",
       "name": "Continentes Mortales",
       "status": "proposal",
       "summary": "Valles, caminos antiguos y aldeas donde los primeros cultivadores descubren que el mundo es más grande de lo que imaginaban.",
@@ -20,7 +20,7 @@
       "order": 1
     },
     {
-      "id": "region_sect_domains",
+      "id": "region-sect-domains",
       "name": "Dominio de las Sectas",
       "status": "proposal",
       "summary": "Patios de aprendizaje, pabellones elevados y senderos de prueba donde las escuelas valoran la comprensión y el carácter.",
@@ -38,7 +38,7 @@
       "order": 2
     },
     {
-      "id": "region_ancient_sea",
+      "id": "region-ancient-sea",
       "name": "Mar de los Antiguos",
       "status": "proposal",
       "summary": "Un océano de niebla azul, islas suspendidas y ruinas que conservan recuerdos de civilizaciones desaparecidas.",
@@ -56,7 +56,7 @@
       "order": 3
     },
     {
-      "id": "region_fragmented_heavens",
+      "id": "region-fragmented-heavens",
       "name": "Cielos Fragmentados",
       "status": "proposal",
       "summary": "Fragmentos de tierra flotan entre corrientes de energía; orientarse exige comprender las relaciones entre espacio y tiempo.",
@@ -74,7 +74,7 @@
       "order": 4
     },
     {
-      "id": "region_root_domain",
+      "id": "region-root-domain",
       "name": "Dominio de las Raíces",
       "status": "proposal",
       "summary": "Un territorio primordial donde la Trama se hace visible y cada raíz revela una forma distinta de interpretar la existencia.",
