@@ -17,7 +17,5 @@ jobs:
         with:
           version: 4.3.0
           use-dotnet: false
-      - name: Import project resources
-        run: godot --headless --editor --path . --quit
       - name: Validate world catalogs
         run: godot --headless --path . --quit-after 10 --script res://tests/validate_data.gd
