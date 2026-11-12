@@ -32,7 +32,7 @@ static func _read_json(path: String) -> Variant:
 	return parsed
 
 static func get_roots() -> Array[Dictionary]:
-	var parsed := _read_json(ROOTS_PATH)
+	var parsed: Variant = _read_json(ROOTS_PATH)
 	if parsed == null:
 		return []
 	var entries: Variant = parsed.get("roots", [])
@@ -56,7 +56,7 @@ static func get_entries(category: String) -> Array[Dictionary]:
 	if not CATALOG_PATHS.has(category):
 		push_error("Categoría de catálogo desconocida: " + category)
 		return []
-	var parsed := _read_json(CATALOG_PATHS[category])
+	var parsed: Variant = _read_json(CATALOG_PATHS[category])
 	if parsed == null:
 		return []
 	var entries: Variant = parsed.get("items", [])
