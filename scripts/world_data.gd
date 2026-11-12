@@ -13,6 +13,7 @@ const CATALOG_PATHS := {
 	"creatures": "res://data/creatures.json",
 	"civilizations": "res://data/civilizations.json",
 }
+const EDITORIAL_STATUSES := ["canon", "proposal", "pending", "deprecated"]
 const CULTIVATION_PATHS := ["Cuerpo", "Alma", "Leyes", "Ruptura"]
 const WORLD_PRINCIPLE := "Ningún cultivador tiene garantizada la grandeza por su nacimiento, talento o maestro."
 
@@ -65,8 +66,11 @@ static func get_entries(category: String) -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
 	var seen_ids := {}
 	for entry in entries:
-		if typeof(entry) != TYPE_DICTIONARY or not entry.has("id") or not entry.has("name") or not entry.has("status"):
+		if typeof(entry) != TYPE_DICTIONARY or not entry.has("id") or not entry.has("name") or not entry.has("status") or not entry.has("summary"):
 			push_error("Se encontró una entrada incompleta en " + category)
+			return []
+		if not EDITORIAL_STATUSES.has(str(entry["status"])):
+			push_error("Estado editorial desconocido en " + category + ": " + str(entry["status"]))
 			return []
 		if seen_ids.has(entry["id"]):
 			push_error("ID duplicado en el catálogo " + category + ": " + str(entry["id"]))
@@ -74,3 +78,15 @@ static func get_entries(category: String) -> Array[Dictionary]:
 		seen_ids[entry["id"]] = true
 		result.append(entry)
 	return result
+
+static func validate_all_catalogs() -> bool:
+	var all_ids := {}
+	for root in get_roots():
+		all_ids[root["id"]] = true
+	for category in CATALOG_PATHS.keys():
+		for entry in get_entries(category):
+			if all_ids.has(entry["id"]):
+				push_error("ID global duplicado: " + str(entry["id"]))
+				return false
+			all_ids[entry["id"]] = true
+	return true
