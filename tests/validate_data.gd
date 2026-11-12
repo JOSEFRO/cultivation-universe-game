@@ -32,10 +32,22 @@ func _init() -> void:
 	var region_ids := {}
 	for region in WorldDataScript.get_entries("regions"):
 		region_ids[region["id"]] = true
-		if not ResourceLoader.exists(str(region.get("scene_path", ""))):
-			push_error("No existe la escena de región: " + str(region.get("scene_path", "")))
+		var scene_path := str(region.get("scene_path", ""))
+		if not ResourceLoader.exists(scene_path):
+			push_error("No existe la escena de región: " + scene_path)
 			quit()
 			return
+		var packed_scene := ResourceLoader.load(scene_path) as PackedScene
+		if packed_scene == null:
+			push_error("No se pudo cargar la escena de región: " + scene_path)
+			quit()
+			return
+		var preview_instance := packed_scene.instantiate()
+		if preview_instance == null:
+			push_error("No se pudo instanciar la escena de región: " + scene_path)
+			quit()
+			return
+		preview_instance.free()
 
 	for mission in WorldDataScript.get_entries("missions"):
 		if not region_ids.has(mission.get("region_id", "")):
