@@ -50,6 +50,15 @@ func _build_environment() -> void:
 	var ground_mesh := PlaneMesh.new()
 	ground_mesh.size = Vector2(90.0, 90.0)
 	_add_mesh(ground_mesh, _make_material(ground), Vector3.ZERO)
+	var floor_body := StaticBody3D.new()
+	floor_body.name = "WalkableGround"
+	var floor_collision := CollisionShape3D.new()
+	var floor_shape := BoxShape3D.new()
+	floor_shape.size = Vector3(90.0, 0.4, 90.0)
+	floor_collision.shape = floor_shape
+	floor_collision.position.y = -0.2
+	floor_body.add_child(floor_collision)
+	add_child(floor_body)
 
 	for index in range(4):
 		var hill := SphereMesh.new()
