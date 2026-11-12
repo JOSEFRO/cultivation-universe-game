@@ -2,11 +2,11 @@
   "version": 1,
   "items": [
     {
-      "id": "mission_001",
+      "id": "mission-001",
       "name": "Las campanas del valle",
       "status": "proposal",
       "summary": "Tres campanas antiguas resuenan con un ritmo que nadie recuerda.",
-      "region_id": "region_mortal_continents",
+      "region_id": "region-mortal-continents",
       "region_name": "Continentes Mortales",
       "type": "Exploración",
       "objective": "Encuentra y registra los tres puntos donde resuena el eco.",
@@ -17,11 +17,11 @@
       }
     },
     {
-      "id": "mission_002",
+      "id": "mission-002",
       "name": "El mapa incompleto",
       "status": "proposal",
       "summary": "Un mapa de caminos perdió sus marcas después de una noche de niebla.",
-      "region_id": "region_mortal_continents",
+      "region_id": "region-mortal-continents",
       "region_name": "Continentes Mortales",
       "type": "Investigación",
       "objective": "Compara dos señales del terreno y reconstruye la ruta.",
@@ -31,11 +31,11 @@
       }
     },
     {
-      "id": "mission_003",
+      "id": "mission-003",
       "name": "El juramento del patio",
       "status": "proposal",
       "summary": "Dos aprendices interpretan de manera distinta una antigua promesa.",
-      "region_id": "region_sect_domains",
+      "region_id": "region-sect-domains",
       "region_name": "Dominio de las Sectas",
       "type": "Diplomacia",
       "objective": "Escucha ambas versiones y registra una interpretación equilibrada.",
@@ -45,11 +45,11 @@
       }
     },
     {
-      "id": "mission_004",
+      "id": "mission-004",
       "name": "Las siete lámparas",
       "status": "proposal",
       "summary": "Las lámparas del pabellón dejaron de responder a la energía del lugar.",
-      "region_id": "region_sect_domains",
+      "region_id": "region-sect-domains",
       "region_name": "Dominio de las Sectas",
       "type": "Cultivo",
       "objective": "Restablece el ritmo de las lámparas mediante concentración y observación.",
@@ -60,11 +60,11 @@
       }
     },
     {
-      "id": "mission_005",
+      "id": "mission-005",
       "name": "Cartas bajo la marea",
       "status": "proposal",
       "summary": "Fragmentos de cartas aparecen en las orillas de las islas antiguas.",
-      "region_id": "region_ancient_sea",
+      "region_id": "region-ancient-sea",
       "region_name": "Mar de los Antiguos",
       "type": "Memoria",
       "objective": "Reúne tres fragmentos y ordena sus recuerdos.",
@@ -74,11 +74,11 @@
       }
     },
     {
-      "id": "mission_006",
+      "id": "mission-006",
       "name": "La tortuga que recuerda",
       "status": "proposal",
       "summary": "Una criatura longeva conserva recuerdos de otras eras.",
-      "region_id": "region_ancient_sea",
+      "region_id": "region-ancient-sea",
       "region_name": "Mar de los Antiguos",
       "type": "Encuentro",
       "objective": "Observa sus marcas y relaciona dos recuerdos sin interrumpir su descanso.",
@@ -89,11 +89,11 @@
       }
     },
     {
-      "id": "mission_007",
+      "id": "mission-007",
       "name": "Puentes de cielo",
       "status": "proposal",
       "summary": "Los puentes entre islas cambian de orientación con cada ciclo de luz.",
-      "region_id": "region_fragmented_heavens",
+      "region_id": "region-fragmented-heavens",
       "region_name": "Cielos Fragmentados",
       "type": "Enigma",
       "objective": "Identifica tres alineaciones estables para cruzar el fragmento.",
@@ -103,11 +103,11 @@
       }
     },
     {
-      "id": "mission_008",
+      "id": "mission-008",
       "name": "El reloj suspendido",
       "status": "proposal",
       "summary": "Un observatorio muestra sombras que no coinciden con el movimiento del cielo.",
-      "region_id": "region_fragmented_heavens",
+      "region_id": "region-fragmented-heavens",
       "region_name": "Cielos Fragmentados",
       "type": "Investigación",
       "objective": "Registra dos ciclos y determina qué patrón se repite.",
@@ -118,11 +118,11 @@
       }
     },
     {
-      "id": "mission_009",
+      "id": "mission-009",
       "name": "Raíces que susurran",
       "status": "proposal",
       "summary": "Las raíces luminosas del santuario han perdido su sincronía.",
-      "region_id": "region_root_domain",
+      "region_id": "region-root-domain",
       "region_name": "Dominio de las Raíces",
       "type": "Restauración",
       "objective": "Reconecta tres puntos de la Trama mediante observación y meditación.",
@@ -133,11 +133,11 @@
       }
     },
     {
-      "id": "mission_010",
+      "id": "mission-010",
       "name": "La semilla sin nombre",
       "status": "proposal",
       "summary": "Una semilla desconocida responde a distintas afinidades, pero no revela su origen.",
-      "region_id": "region_root_domain",
+      "region_id": "region-root-domain",
       "region_name": "Dominio de las Raíces",
       "type": "Descubrimiento",
       "objective": "Registra dos cambios de la semilla sin forzar su transformación.",
