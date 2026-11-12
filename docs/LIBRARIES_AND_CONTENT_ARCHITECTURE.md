@@ -30,7 +30,7 @@ scripts/world_data.gd expone get_roots(), get_entries(category) y validate_all_c
 Con Godot 4.3 o compatible, ejecutar:
 godot --headless --path . --script res://tests/validate_data.gd
 
-El workflow de GitHub Actions instala Godot 4.3.0, importa el proyecto y ejecuta esta prueba en cada pull request hacia main. La prueba comprueba siete raíces, nueve catálogos y validación global.
+El workflow de GitHub Actions instala Godot 4.3.0 y ejecuta esta prueba en cada pull request hacia main. La prueba comprueba siete raíces, nueve catálogos y validación global.
 
 ## Exportación
 Los catálogos son JSON leídos desde res:// con FileAccess. En el preset de exportación de Godot se deben incluir explícitamente los archivos *.json (o todos los archivos del proyecto) para que estén en el PCK. Una ejecución dentro del editor no demuestra que los archivos estén empaquetados. Confirmar esta inclusión al crear la exportación final.
