@@ -36,8 +36,9 @@ func _clear_screen() -> void:
 func _make_layout() -> VBoxContainer:
 	var margin := MarginContainer.new()
 	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	margin.add_theme_constant_override("margin_left", 56)
-	margin.add_theme_constant_override("margin_right", 56)
+	var side_margin := 24 if get_viewport_rect().size.x < 800 else 56
+	margin.add_theme_constant_override("margin_left", side_margin)
+	margin.add_theme_constant_override("margin_right", side_margin)
 	margin.add_theme_constant_override("margin_top", 38)
 	margin.add_theme_constant_override("margin_bottom", 34)
 	screen_root.add_child(margin)
@@ -62,6 +63,23 @@ func _button(text: String, callback: Callable) -> Button:
 	var item := Button.new()
 	item.text = text
 	item.custom_minimum_size = Vector2(190, 46)
+	item.add_theme_font_size_override("font_size", 11)
+	item.add_theme_color_override("font_color", Color("#e8d4ad"))
+	var normal := StyleBoxFlat.new()
+	normal.bg_color = Color("#121827")
+	normal.border_color = Color("#b99760")
+	normal.set_border_width_all(1)
+	normal.set_corner_radius_all(4)
+	normal.content_margin_left = 12
+	normal.content_margin_right = 12
+	var hover := normal.duplicate() as StyleBoxFlat
+	hover.bg_color = Color("#202a3d")
+	var pressed := normal.duplicate() as StyleBoxFlat
+	pressed.bg_color = Color("#3a2f20")
+	item.add_theme_stylebox_override("normal", normal)
+	item.add_theme_stylebox_override("hover", hover)
+	item.add_theme_stylebox_override("pressed", pressed)
+	item.add_theme_stylebox_override("focus", hover)
 	item.pressed.connect(callback)
 	return item
 
@@ -95,6 +113,8 @@ func _show_creation() -> void:
 	var name_input := LineEdit.new()
 	name_input.placeholder_text = "Nombre de tu cultivador"
 	name_input.custom_minimum_size.y = 44
+	name_input.add_theme_color_override("font_color", Color("#eee8dc"))
+	name_input.add_theme_color_override("font_placeholder_color", Color("#858b99"))
 	layout.add_child(_label("NOMBRE", 11, "#c4a575"))
 	layout.add_child(name_input)
 	var origin_select := OptionButton.new()
@@ -115,8 +135,8 @@ func _show_creation() -> void:
 	path_select.select(0)
 	layout.add_child(_label("CAMINO DE CULTIVO", 11, "#c4a575"))
 	layout.add_child(path_select)
-	var actions := HBoxContainer.new()
-	actions.add_theme_constant_override("separation", 12)
+	var actions := VBoxContainer.new()
+	actions.add_theme_constant_override("separation", 10)
 	layout.add_child(actions)
 	actions.add_child(_button("DESPERTAR MI CAMINO", func():
 		var chosen_name := name_input.text.strip_edges()
