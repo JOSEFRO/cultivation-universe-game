@@ -2,6 +2,12 @@
 
 RPG original de cultivo desarrollado con **Godot 4**. Este repositorio contiene el prototipo jugable y las escenas 3D iniciales del universo.
 
+## Dirección del proyecto
+
+- **Visual:** cinematográfico 3D, con cámara 3/4, ambientes con profundidad, iluminación atmosférica y animaciones narrativas.
+- **Experiencia:** social, con exploración cooperativa y encuentros entre jugadores planeados por etapas.
+- **Prioridad:** conservar la base actual y llevar primero una región a calidad de vertical slice.
+
 ## Estado actual
 
 **Vertical slice de las primeras cinco regiones en desarrollo.**
@@ -15,7 +21,7 @@ RPG original de cultivo desarrollado con **Godot 4**. Este repositorio contiene 
 - Registro de descubrimientos por región.
 - Movimiento WASD, carrera, salto y cámara 3/4 con un personaje provisional.
 
-El personaje visible en las escenas es todavía un maniquí geométrico. El rig humanoide final y las animaciones cinematográficas importadas siguen pendientes.
+El personaje visible en las escenas es todavía un maniquí geométrico. El rig humanoide final, las animaciones cinematográficas importadas y las funciones multijugador/sociales conectadas siguen pendientes. La dirección social está aprobada, pero no debe confundirse con una función ya disponible.
 
 ## Primeras cinco regiones
 
@@ -27,9 +33,15 @@ El personaje visible en las escenas es todavía un maniquí geométrico. El rig 
 
 Las misiones incluyen exploración, investigación, diplomacia, memoria, enigmas, restauración y cultivo. El tablero actual registra pasos de misión como prototipo; las interacciones contextuales dentro del mundo se desarrollarán después.
 
-## Arquitectura de contenido
+## Arquitectura y planificación
 
-Los catálogos JSON están en `data/`. El contenido añadido en esta fase está marcado como `proposal`, no como canon definitivo. Consulta [docs/LIBRARIES_AND_CONTENT_ARCHITECTURE.md](docs/LIBRARIES_AND_CONTENT_ARCHITECTURE.md) y [docs/CONTENT_ORIGINALITY.md](docs/CONTENT_ORIGINALITY.md).
+- [Hoja de ruta](docs/ROADMAP.md)
+- [Pilares de diseño](docs/DESIGN_PILLARS.md)
+- [Diseño técnico cinematográfico y social](docs/CINEMATIC_SOCIAL_DESIGN.md)
+- [Arquitectura de bibliotecas y contenido](docs/LIBRARIES_AND_CONTENT_ARCHITECTURE.md)
+- [Política de originalidad](docs/CONTENT_ORIGINALITY.md)
+
+Los catálogos JSON están en `data/`. `scripts/world_data.gd` centraliza su carga y validación. El contenido añadido en esta fase está marcado como `proposal`, no como canon definitivo.
 
 ## Validar datos
 
