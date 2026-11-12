@@ -2,7 +2,7 @@ extends SceneTree
 
 const WorldDataScript = preload("res://scripts/world_data.gd")
 
-func _initialize() -> void:
+func _init() -> void:
 	var roots := WorldDataScript.get_roots()
 	assert(roots.size() == 7, "El proyecto debe cargar exactamente siete raíces.")
 
