@@ -1,4 +1,35 @@
 {
   "version": 1,
-  "items": []
+  "items": [
+    {
+      "id": "creature_mist_fox",
+      "name": "Zorro de Bruma",
+      "status": "proposal",
+      "summary": "Criatura curiosa que deja rastros luminosos cerca de caminos olvidados."
+    },
+    {
+      "id": "creature_memory_turtle",
+      "name": "Tortuga de la Memoria",
+      "status": "proposal",
+      "summary": "Ser antiguo cuyas marcas conservan imágenes de otras eras."
+    },
+    {
+      "id": "creature_jade_crane",
+      "name": "Grulla de Jade",
+      "status": "proposal",
+      "summary": "Ave migratoria que sigue corrientes de energía entre regiones."
+    },
+    {
+      "id": "creature_root_deer",
+      "name": "Ciervo de Raíz",
+      "status": "proposal",
+      "summary": "Habitante pacífico de los jardines primordiales."
+    },
+    {
+      "id": "creature_cloud_whale",
+      "name": "Ballena de Nube",
+      "status": "proposal",
+      "summary": "Gigante sereno que se desplaza entre islas suspendidas."
+    }
+  ]
 }
