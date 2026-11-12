@@ -1,16 +1,19 @@
 # Hoja de ruta del prototipo
 
-## Fase 0 — Fundamentos (actual)
+## Fase 0 — Fundamentos (completada)
 - Proyecto Godot 4 importable.
-- Escena principal y navegación de prueba.
+- Escena principal y navegación inicial.
 - Datos iniciales de las siete raíces.
 - Principios narrativos y pilares de diseño.
 
-## Fase 1 — Creación del cultivador
-- Selección de procedencia, linaje y raza.
-- Afinidades y talentos con reglas explicables.
-- Rasgos visibles y potenciales ocultos.
-- Guardado local de la ficha.
+## Fase 1 — Creación del cultivador (vertical slice inicial)
+- [x] Nombre y procedencia.
+- [x] Afinidad inicial entre las siete raíces.
+- [x] Elección de camino: Cuerpo, Alma, Leyes o Ruptura.
+- [x] Ficha personal con reino y atributos iniciales.
+- [x] Guardado y recuperación local del personaje.
+- [ ] Linaje, raza, cuerpo especial y talentos.
+- [ ] Generación de potencial oculto y rasgos únicos.
 
 ## Fase 2 — Ceremonia de los Siete Juicios
 - Siete pruebas con resultados independientes.
@@ -20,7 +23,7 @@
 
 ## Fase 3 — Ciclo de juego
 - Exploración, investigación y encuentros.
-- Misiones para discípulos e independientes.
+- Misiones del Pabellón de las Oportunidades.
 - Recompensas, recursos, técnicas y herencias.
 - Consecuencias persistentes de las decisiones.
 
@@ -30,4 +33,4 @@
 - Facciones con objetivos propios.
 - Progresión de cultivo basada en transformación y comprensión.
 
-> La hoja de ruta es una guía de desarrollo, no una promesa de funciones ya implementadas.
+> La hoja de ruta distingue las funciones implementadas de las que siguen en diseño.
