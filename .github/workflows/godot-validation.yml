@@ -18,4 +18,8 @@ jobs:
           version: 4.3.0
           use-dotnet: false
       - name: Validate world catalogs
-        run: godot --headless --path . --quit-after 10 --script res://tests/validate_data.gd
+        shell: bash
+        run: |
+          output="$(godot --headless --path . --quit-after 10 --script res://tests/validate_data.gd 2>&1)"
+          printf '%s\\n' "$output"
+          printf '%s\\n' "$output" | grep -F "SIETE RAÍCES: validación de catálogos correcta."
