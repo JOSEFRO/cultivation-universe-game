@@ -80,11 +80,24 @@ static func get_entries(category: String) -> Array[Dictionary]:
 	return result
 
 static func validate_all_catalogs() -> bool:
+	var roots := get_roots()
+	if roots.size() != 7:
+		return false
 	var all_ids := {}
-	for root in get_roots():
+	for root in roots:
 		all_ids[root["id"]] = true
 	for category in CATALOG_PATHS.keys():
-		for entry in get_entries(category):
+		var parsed := _read_json(CATALOG_PATHS[category])
+		if parsed == null:
+			return false
+		var raw_items: Variant = parsed.get("items", null)
+		if typeof(raw_items) != TYPE_ARRAY:
+			push_error("Colección items ausente o inválida: " + category)
+			return false
+		var entries := get_entries(category)
+		if entries.size() != raw_items.size():
+			return false
+		for entry in entries:
 			if all_ids.has(entry["id"]):
 				push_error("ID global duplicado: " + str(entry["id"]))
 				return false
