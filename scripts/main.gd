@@ -198,11 +198,100 @@ func _show_dashboard() -> void:
 		_show_dashboard()
 	))
 	second_row.add_child(_button("CONSULTAR LAS RAÍCES", _show_codex))
+	var world_row := HBoxContainer.new()
+	world_row.add_theme_constant_override("separation", 10)
+	layout.add_child(world_row)
+	world_row.add_child(_button("EXPLORAR LAS CINCO REGIONES", _show_regions))
+	world_row.add_child(_button("PABELLÓN DE LAS OPORTUNIDADES", _show_missions))
 	layout.add_child(_button("REINICIAR PERSONAJE", _confirm_reset))
 	var filler := Control.new()
 	filler.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	layout.add_child(filler)
 	layout.add_child(_label("GUARDADO LOCAL · user://siete_raices_save.json", 10, "#777d8c"))
+
+
+func _show_regions() -> void:
+	_clear_screen()
+	var layout := _make_layout()
+	layout.add_child(_label("MAPA DE LA TRAMA  /  CINCO REGIONES", 12, "#d6b77f"))
+	layout.add_child(_label("El mundo que puedes recorrer", 36))
+	layout.add_child(_label("Cada región tiene una escena 3D propia, un paisaje distinto y descubrimientos que se guardan en tu registro.", 14, "#a6a7b1"))
+	var discovered: Array = character.get("discovered_regions", [])
+	for region in WORLD_DATA.get_entries("regions"):
+		var block := VBoxContainer.new()
+		block.add_theme_constant_override("separation", 5)
+		block.add_child(_label(str(region.get("order", 0)).pad_zeros(2) + "  /  " + str(region.get("name", "Región")), 19, "#e4c58e"))
+		block.add_child(_label(str(region.get("summary", "")), 13, "#a6a7b1"))
+		var state := "DESCUBIERTA" if discovered.has(region.get("id", "")) else "SIN EXPLORAR"
+		block.add_child(_label(state, 10, "#8eb8a2" if discovered.has(region.get("id", "")) else "#b8a4d9"))
+		var scene_path := str(region.get("scene_path", ""))
+		block.add_child(_button("ENTRAR EN LA REGIÓN", Callable(self, "_launch_region").bind(scene_path)))
+		layout.add_child(block)
+	layout.add_child(_button("VOLVER AL REGISTRO", _show_dashboard))
+
+
+func _launch_region(scene_path: String) -> void:
+	if scene_path.is_empty() or not ResourceLoader.exists(scene_path):
+		push_error("No se encontró la escena de región: " + scene_path)
+		return
+	get_tree().change_scene_to_file(scene_path)
+
+
+func _show_missions() -> void:
+	_clear_screen()
+	var layout := _make_layout()
+	layout.add_child(_label("PABELLÓN DE LAS OPORTUNIDADES", 12, "#d6b77f"))
+	layout.add_child(_label("Misiones y descubrimientos", 36))
+	layout.add_child(_label("Completa objetivos de exploración, investigación, diplomacia, memoria y cultivo. Las recompensas se guardan en tu personaje.", 14, "#a6a7b1"))
+	var completed: Array = character.get("completed_missions", [])
+	var progress: Dictionary = character.get("mission_progress", {})
+	for mission in WORLD_DATA.get_entries("missions"):
+		var mission_id := str(mission.get("id", ""))
+		var required := int(mission.get("required_steps", 1))
+		var current := int(progress.get(mission_id, 0))
+		var block := VBoxContainer.new()
+		block.add_theme_constant_override("separation", 5)
+		block.add_child(_label(str(mission.get("name", "Misión")), 18, "#e4c58e"))
+		block.add_child(_label(str(mission.get("region_name", "")) + "  ·  " + str(mission.get("type", "Exploración")), 10, "#c4a575"))
+		block.add_child(_label(str(mission.get("summary", "")), 13, "#a6a7b1"))
+		block.add_child(_label("OBJETIVO: " + str(mission.get("objective", "")), 12, "#d2d6df"))
+		if completed.has(mission_id):
+			block.add_child(_label("COMPLETADA  ·  RECOMPENSA REGISTRADA", 11, "#8eb8a2"))
+		else:
+			block.add_child(_label("PROGRESO: %d / %d" % [current, required], 11, "#b8a4d9"))
+			block.add_child(_button("REGISTRAR AVANCE", Callable(self, "_advance_mission").bind(mission_id)))
+		layout.add_child(block)
+	layout.add_child(_button("VOLVER AL REGISTRO", _show_dashboard))
+
+
+func _advance_mission(mission_id: String) -> void:
+	var mission: Dictionary = {}
+	for entry in WORLD_DATA.get_entries("missions"):
+		if str(entry.get("id", "")) == mission_id:
+			mission = entry
+			break
+	if mission.is_empty():
+		return
+
+	var completed: Array = character.get("completed_missions", [])
+	if completed.has(mission_id):
+		return
+	var progress: Dictionary = character.get("mission_progress", {})
+	var current := int(progress.get(mission_id, 0)) + 1
+	var required := int(mission.get("required_steps", 1))
+	if current >= required:
+		completed.append(mission_id)
+		progress.erase(mission_id)
+		var reward: Dictionary = mission.get("reward", {})
+		for stat in ["insight", "comprehension", "vitality"]:
+			if reward.has(stat):
+				character[stat] = int(character.get(stat, 0)) + int(reward[stat])
+	else:
+		progress[mission_id] = current
+	character["completed_missions"] = completed
+	character["mission_progress"] = progress
+	_save_character()
+	_show_missions()
 
 func _show_codex() -> void:
 	_clear_screen()
