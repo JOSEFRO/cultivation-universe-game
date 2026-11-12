@@ -5,7 +5,7 @@ const HUMANOID_CONTROLLER = preload("res://scripts/characters/humanoid_controlle
 const CAMERA_RIG = preload("res://scripts/characters/three_quarter_camera_rig.gd")
 const SAVE_PATH := "user://siete_raices_save.json"
 
-@export var region_id: String = "region_mortal_continents"
+@export var region_id: String = "region-mortal-continents"
 
 var _region: Dictionary = {}
 var _status_label: Label
@@ -75,11 +75,11 @@ func _build_landmarks() -> void:
 	var glow := _make_material(accent, true)
 
 	match region_id:
-		"region_mortal_continents":
+		"region-mortal-continents":
 			for point in [Vector3(-14, 0, 7), Vector3(-7, 0, 12), Vector3(8, 0, 8), Vector3(15, 0, 13)]:
 				_add_tree(point, 1.0, stone, glow)
 			_add_arch(Vector3(0, 0, -5), stone, 4.5)
-		"region_sect_domains":
+		"region-sect-domains":
 			for x in [-12.0, -6.0, 6.0, 12.0]:
 				_add_column(Vector3(x, 0, -4), 0.65, 6.0, stone)
 			for step in range(5):
@@ -88,20 +88,20 @@ func _build_landmarks() -> void:
 				_add_mesh(stair, stone, Vector3(0, 0.18 + step * 0.25, 7.0 - step * 1.0))
 			for x in [-8.0, 0.0, 8.0]:
 				_add_mesh(SphereMesh.new(), glow, Vector3(x, 3.4, -3), Vector3(0.28, 0.28, 0.28))
-		"region_ancient_sea":
+		"region-ancient-sea":
 			var water := PlaneMesh.new()
 			water.size = Vector2(80, 80)
 			_add_mesh(water, _make_material(Color("#245c78")), Vector3(0, -0.08, 0))
 			for point in [Vector3(-13, 1.2, -8), Vector3(0, 2.0, -15), Vector3(13, 1.0, -6), Vector3(8, 0.8, 12)]:
 				_add_mesh(SphereMesh.new(), _make_material(Color("#627e80")), point, Vector3(4.0, 0.9, 3.0))
 				_add_column(point + Vector3(0, 1.5, 0), 0.45, 3.0, glow)
-		"region_fragmented_heavens":
+		"region-fragmented-heavens":
 			for index in range(6):
 				var point := Vector3(-15.0 + index * 6.0, 2.0 + float(index % 3) * 2.0, -12.0 - float(index % 2) * 5.0)
 				_add_mesh(SphereMesh.new(), _make_material(Color("#6d648b")), point, Vector3(3.2, 0.75, 2.6))
 				_add_column(point + Vector3(0, 1.0, 0), 0.35, 2.0, glow)
 			_add_arch(Vector3(0, 0, 3), glow, 3.2)
-		"region_root_domain":
+		"region-root-domain":
 			_add_column(Vector3(0, 0, -8), 1.2, 13.0, glow)
 			_add_mesh(SphereMesh.new(), _make_material(Color("#668d69"), true), Vector3(0, 7.5, -8), Vector3(5.5, 4.2, 5.5))
 			for index in range(7):
