@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scripts/characters/humanoid_controller.gd" id="1_controller"]
 [ext_resource type="Script" path="res://scripts/characters/three_quarter_camera_rig.gd" id="2_camera"]
@@ -16,6 +16,9 @@ rings = 8
 [sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
 size = Vector2(40, 40)
 
+[sub_resource type="BoxShape3D" id="BoxShape_ground"]
+size = Vector3(40, 0.2, 40)
+
 [node name="HumanoidAnimationPrototype" type="Node3D"]
 
 [node name="Ground" type="StaticBody3D" parent="."]
@@ -24,9 +27,8 @@ size = Vector2(40, 40)
 mesh = SubResource("PlaneMesh_ground")
 
 [node name="GroundCollision" type="CollisionShape3D" parent="Ground"]
-shape = SubResource("CapsuleShape_player")
-position = Vector3(0, -0.95, 0)
-# La colisión del suelo se sustituye por un plano delgado en la escena final.
+shape = SubResource("BoxShape_ground")
+position = Vector3(0, -0.1, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 rotation = Vector3(-0.8, -0.6, 0)
