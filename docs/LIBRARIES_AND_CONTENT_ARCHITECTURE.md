@@ -26,11 +26,11 @@ No se agrega contenido propuesto como canon.
 ## Carga y validación
 scripts/world_data.gd expone get_roots(), get_entries(category) y validate_all_catalogs(). Comprueba existencia, apertura, versión, tipo de colección, campos obligatorios, estados editoriales e IDs duplicados entre todas las categorías. main.gd ejecuta la validación al iniciar.
 
-## Prueba headless
-Con Godot 4.3 o compatible, ejecutar desde la raíz del proyecto:
+## Prueba automatizada
+Con Godot 4.3 o compatible, ejecutar:
 godot --headless --path . --script res://tests/validate_data.gd
 
-La prueba comprueba las siete raíces, los nueve catálogos y la validación global. Debe ejecutarse en el entorno Godot antes de afirmar que el juego está validado.
+El workflow de GitHub Actions instala Godot 4.3.0, importa el proyecto y ejecuta esta prueba en cada pull request hacia main. La prueba comprueba siete raíces, nueve catálogos y validación global.
 
 ## Exportación
 Los catálogos son JSON leídos desde res:// con FileAccess. En el preset de exportación de Godot se deben incluir explícitamente los archivos *.json (o todos los archivos del proyecto) para que estén en el PCK. Una ejecución dentro del editor no demuestra que los archivos estén empaquetados. Confirmar esta inclusión al crear la exportación final.
@@ -42,3 +42,9 @@ Los IDs deben ser slugs estables y globalmente únicos. status acepta canon, pro
 
 ## Guardado
 Las partidas deben tener su propia versión de formato y migraciones independientes de la versión de catálogos. Nunca modificar un save antiguo sin comprobar su versión.
+
+## Documentación oficial consultada
+- [Godot 4.3 — FileAccess](https://docs.godotengine.org/en/4.3/classes/class_fileaccess.html).
+- [Godot — ResourceLoader](https://docs.godotengine.org/en/stable/classes/class_resourceloader.html).
+- [Godot — ResourceSaver](https://docs.godotengine.org/en/stable/classes/class_resourcesaver.html).
+- [Setup Godot GitHub Action](https://github.com/chickensoft-games/setup-godot).
