@@ -22,7 +22,7 @@ jobs:
         run: |
           output="$(godot --headless --path . --quit-after 10 --script res://tests/validate_data.gd 2>&1)"
           printf '%s\\n' "$output"
-          printf '%s\\n' "$output" | grep -F "SIETE RAÍCES: validación de catálogos correcta."
+          printf '%s\\n' "$output" | grep -F "SIETE RAÍCES: regiones, misiones y catálogos validados correctamente."
       - name: Launch main scene headlessly
         shell: bash
         run: |
