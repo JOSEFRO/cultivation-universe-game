@@ -1,17 +1,38 @@
 # Arquitectura de contenido — Siete Raíces (Godot)
 
-## Integración aplicada
+## Decisión tecnológica
+Godot 4 incluye las herramientas necesarias:
+- JSON y FileAccess para leer catálogos compartidos.
+- Resource y archivos .tres para contenido editable desde el Inspector.
+- ResourceLoader y ResourceSaver para recursos tipados.
+- FileAccess en user:// para partidas guardadas.
 
-- `data/roots.json` contiene el catálogo versionado de las siete raíces compartido conceptualmente con la web.
-- `scripts/world_data.gd` carga y valida la versión y la cantidad de entradas con las APIs nativas `FileAccess` y `JSON`.
-- La creación del personaje y el códice consultan el mismo catálogo, en vez de mantener nombres y descripciones duplicados dentro del script.
+No se añade un plugin externo de datos en esta etapa.
 
-## Decisión sobre bibliotecas
+## Catálogos
+data/roots.json contiene las siete raíces establecidas. Los siguientes archivos versionados empiezan vacíos con version: 1 e items: []:
+- maestros;
+- reinos de cultivo;
+- artefactos;
+- técnicas;
+- facciones;
+- aventuras;
+- misiones;
+- criaturas;
+- civilizaciones.
 
-Godot ya incluye `Resource`, `JSON` y `FileAccess`. Para maestros, artefactos, técnicas y misiones conviene introducir recursos tipados (`.tres`) cuando esos datos deban editarse desde el Inspector. No se añade un plugin externo de datos mientras las herramientas nativas cubran la necesidad.
+No se agrega contenido propuesto como canon.
 
-## Sincronización
+## Carga y validación
+scripts/world_data.gd expone get_roots() y get_entries(category). Comprueba existencia, apertura, versión, tipo de colección, campos obligatorios e IDs duplicados dentro de cada categoría.
 
-La copia `data/roots.json` debe coincidir con `src/data/roots.json` del repositorio web. Ambas deben conservar `version: 1` y siete IDs estables. Al cambiar el formato, documentar migración antes de modificar partidas guardadas o contenido existente.
+## Exportación
+Los catálogos son JSON leídos desde res:// con FileAccess. En el preset de exportación de Godot se deben incluir explícitamente los archivos *.json (o todos los archivos del proyecto) para que estén en el PCK. Una ejecución dentro del editor no demuestra que los archivos estén empaquetados. Confirmar esta inclusión al crear la exportación final.
 
-El catálogo contiene únicamente las siete raíces establecidas; no introduce una octava raíz ni convierte propuestas narrativas en canon.
+La documentación de Godot diferencia FileAccess para texto/archivos de usuario y ResourceLoader para recursos importados. Si los datos necesitan edición visual avanzada, migrar a Resource tipados .tres manteniendo JSON como formato de intercambio.
+
+## Integridad editorial
+Los IDs deben ser slugs estables y globalmente únicos. status acepta canon, proposal, pending o deprecated. Las referencias entre maestros, facciones, técnicas y artefactos deben validarse antes de usarse en el juego.
+
+## Guardado
+Las partidas deben tener su propia versión de formato y migraciones independientes de la versión de catálogos. Nunca modificar un save antiguo sin comprobar su versión.
