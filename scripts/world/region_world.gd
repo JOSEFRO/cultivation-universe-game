@@ -388,7 +388,7 @@ func _add_island(position: Vector3, stone: Material, vegetation: Material) -> vo
 	_add_mesh(SphereMesh.new(), stone, position + Vector3(0, -0.5, 0), Vector3(4.8, 1.3, 3.8))
 	_add_mesh(SphereMesh.new(), vegetation, position + Vector3(0, 0.28, 0), Vector3(4.4, 0.28, 3.4))
 	for edge in [-1.0, 1.0]:
-		_add_mesh(ConeMesh.new(), stone, position + Vector3(edge * 1.6, -2.0, 0), Vector3(0.85, 2.5, 0.85))
+		_add_mesh(CylinderMesh.new(), stone, position + Vector3(edge * 1.6, -2.0, 0), Vector3(0.85, 2.5, 0.85))
 
 
 func _add_distant_mountain_ridge(material_color: Color) -> void:
