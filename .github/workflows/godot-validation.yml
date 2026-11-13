@@ -21,6 +21,7 @@ jobs:
         with:
           version: 4.7.2
           use-dotnet: false
+          include-templates: true
 
       - name: Verify engine version
         run: |
