@@ -48,3 +48,16 @@ jobs:
           output="$(godot --headless --path . --quit-after 10 2>&1)"
           printf '%s\n' "$output"
           printf '%s\n' "$output" | grep -F "SIETE RAÍCES: escena principal inicializada."
+
+      - name: Export Windows build
+        run: |
+          mkdir -p build
+          godot --headless --path . --export-release "Windows Desktop" build/SieteRaices.exe
+          test -s build/SieteRaices.exe
+
+      - name: Upload Windows build
+        uses: actions/upload-artifact@v4
+        with:
+          name: Siete-Raices-Windows
+          path: build/
+          if-no-files-found: error
