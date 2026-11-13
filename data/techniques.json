@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "technique-mist-step",
+      "name": "Paso de Niebla",
+      "status": "proposal",
+      "summary": "Desplazamiento sereno para recorrer senderos cubiertos de bruma."
+    },
+    {
+      "id": "technique-echo-listen",
+      "name": "Escucha del Eco",
+      "status": "proposal",
+      "summary": "Permite distinguir patrones sonoros y memorias ambientales."
+    },
+    {
+      "id": "technique-still-breath",
+      "name": "Respiración Serena",
+      "status": "proposal",
+      "summary": "Estabiliza la concentración durante prácticas de cultivo."
+    },
+    {
+      "id": "technique-space-thread",
+      "name": "Hilo Espacial",
+      "status": "proposal",
+      "summary": "Ayuda a percibir conexiones entre puntos distantes."
+    },
+    {
+      "id": "technique-root-resonance",
+      "name": "Resonancia de Raíz",
+      "status": "proposal",
+      "summary": "Armoniza temporalmente con un entorno natural."
+    }
+  ]
+}

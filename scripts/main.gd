@@ -1,108 +1,343 @@
 extends Control
 
 const WORLD_DATA = preload("res://scripts/world_data.gd")
+const SAVE_PATH := "user://siete_raices_save.json"
 
-var status_label: Label
+var screen_root: Control
+var character: Dictionary = {}
 
 func _ready() -> void:
-	_build_interface()
+	if not WORLD_DATA.validate_all_catalogs():
+		push_error("Los catálogos de Siete Raíces no superaron la validación.")
+	_build_shell()
+	if _load_character():
+		_show_dashboard()
+	else:
+		_show_menu()
+	print("SIETE RAÍCES: escena principal inicializada.")
 
-func _build_interface() -> void:
+func _build_shell() -> void:
 	var background := ColorRect.new()
-	background.color = Color("#090b12")
+	background.color = Color("#080b13")
 	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(background)
-
 	var glow := ColorRect.new()
-	glow.color = Color("#17182a")
-	glow.position = Vector2(760, 70)
-	glow.size = Vector2(440, 440)
-	glow.modulate.a = 0.48
+	glow.color = Color("#171b2b")
+	glow.position = Vector2(700, 80)
+	glow.size = Vector2(480, 480)
+	glow.modulate.a = 0.34
 	add_child(glow)
+	screen_root = Control.new()
+	screen_root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	add_child(screen_root)
 
+func _clear_screen() -> void:
+	for child in screen_root.get_children():
+		screen_root.remove_child(child)
+		child.queue_free()
+
+func _make_layout() -> VBoxContainer:
 	var margin := MarginContainer.new()
 	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	margin.add_theme_constant_override("margin_left", 72)
-	margin.add_theme_constant_override("margin_right", 72)
-	margin.add_theme_constant_override("margin_top", 48)
-	margin.add_theme_constant_override("margin_bottom", 40)
-	add_child(margin)
-
+	var side_margin := 24 if get_viewport_rect().size.x < 800 else 56
+	margin.add_theme_constant_override("margin_left", side_margin)
+	margin.add_theme_constant_override("margin_right", side_margin)
+	margin.add_theme_constant_override("margin_top", 38)
+	margin.add_theme_constant_override("margin_bottom", 34)
+	screen_root.add_child(margin)
+	var scroll := ScrollContainer.new()
+	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	margin.add_child(scroll)
 	var layout := VBoxContainer.new()
-	layout.add_theme_constant_override("separation", 22)
-	margin.add_child(layout)
+	layout.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	layout.add_theme_constant_override("separation", 16)
+	scroll.add_child(layout)
+	return layout
 
-	var brand := Label.new()
-	brand.text = "✧   SIETE RAÍCES     /     ARCHIVO DE LO PRIMORDIAL"
-	brand.add_theme_font_size_override("font_size", 14)
-	brand.add_theme_color_override("font_color", Color("#d6b77f"))
-	layout.add_child(brand)
+func _label(text: String, size: int = 16, color: String = "#e9e3d8") -> Label:
+	var item := Label.new()
+	item.text = text
+	item.add_theme_font_size_override("font_size", size)
+	item.add_theme_color_override("font_color", Color(color))
+	item.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	return item
 
+func _button(text: String, callback: Callable) -> Button:
+	var item := Button.new()
+	item.text = text
+	item.custom_minimum_size = Vector2(190, 46)
+	item.add_theme_font_size_override("font_size", 11)
+	item.add_theme_color_override("font_color", Color("#e8d4ad"))
+	var normal := StyleBoxFlat.new()
+	normal.bg_color = Color("#121827")
+	normal.border_color = Color("#b99760")
+	normal.set_border_width_all(1)
+	normal.set_corner_radius_all(4)
+	normal.content_margin_left = 12
+	normal.content_margin_right = 12
+	var hover := normal.duplicate() as StyleBoxFlat
+	hover.bg_color = Color("#202a3d")
+	var pressed := normal.duplicate() as StyleBoxFlat
+	pressed.bg_color = Color("#3a2f20")
+	item.add_theme_stylebox_override("normal", normal)
+	item.add_theme_stylebox_override("hover", hover)
+	item.add_theme_stylebox_override("pressed", pressed)
+	item.add_theme_stylebox_override("focus", hover)
+	item.pressed.connect(callback)
+	return item
+
+func _show_menu() -> void:
+	_clear_screen()
+	var layout := _make_layout()
+	layout.add_child(_label("✧   SIETE RAÍCES  /  ARCHIVO DE LO PRIMORDIAL", 13, "#d6b77f"))
 	var spacer := Control.new()
-	spacer.custom_minimum_size.y = 75
+	spacer.custom_minimum_size.y = 55
 	layout.add_child(spacer)
+	layout.add_child(_label("UN UNIVERSO ORIGINAL DE CULTIVO", 12, "#c4a575"))
+	layout.add_child(_label("El destino no se hereda.\nSe conquista.", 46, "#f0e9dc"))
+	layout.add_child(_label("Siete raíces sostienen la existencia. Tu camino comienza con una decisión, no con una profecía.", 17, "#a6a7b1"))
+	var actions := HBoxContainer.new()
+	actions.add_theme_constant_override("separation", 12)
+	layout.add_child(actions)
+	actions.add_child(_button("INICIAR CAMINO", _show_creation))
+	actions.add_child(_button("VER LAS SIETE RAÍCES", _show_codex))
+	layout.add_child(_label("PROTOTIPO JUGABLE · CREACIÓN DE PERSONAJE Y PRIMERAS PRÁCTICAS", 10, "#888b98"))
+	var filler := Control.new()
+	filler.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	layout.add_child(filler)
+	layout.add_child(_label("NINGÚN PERSONAJE TIENE GARANTIZADA LA GRANDEZA.", 11, "#c7a878"))
 
-	var eyebrow := Label.new()
-	eyebrow.text = "UN UNIVERSO ORIGINAL DE CULTIVO"
-	eyebrow.add_theme_font_size_override("font_size", 12)
-	eyebrow.add_theme_color_override("font_color", Color("#c4a575"))
-	layout.add_child(eyebrow)
+func _show_creation() -> void:
+	_clear_screen()
+	var layout := _make_layout()
+	layout.add_child(_label("SIETE RAÍCES  /  CEREMONIA DE INICIO", 12, "#d6b77f"))
+	layout.add_child(_label("Define tu primer camino", 38))
+	layout.add_child(_label("Tus elecciones describen el comienzo. No determinan hasta dónde podrás llegar.", 15, "#a6a7b1"))
+	var name_input := LineEdit.new()
+	name_input.placeholder_text = "Nombre de tu cultivador"
+	name_input.custom_minimum_size.y = 44
+	name_input.add_theme_color_override("font_color", Color("#eee8dc"))
+	name_input.add_theme_color_override("font_placeholder_color", Color("#858b99"))
+	layout.add_child(_label("NOMBRE", 11, "#c4a575"))
+	layout.add_child(name_input)
+	var origin_select := OptionButton.new()
+	for origin in ["Continentes Mortales", "Dominio de las Sectas", "Mar de los Antiguos"]:
+		origin_select.add_item(origin)
+	origin_select.select(0)
+	layout.add_child(_label("PROCEDENCIA", 11, "#c4a575"))
+	layout.add_child(origin_select)
+	var root_select := OptionButton.new()
+	for root in WORLD_DATA.get_roots():
+		root_select.add_item(root["name"])
+	root_select.select(0)
+	layout.add_child(_label("AFINIDAD INICIAL", 11, "#c4a575"))
+	layout.add_child(root_select)
+	var path_select := OptionButton.new()
+	for path in WORLD_DATA.CULTIVATION_PATHS:
+		path_select.add_item(path)
+	path_select.select(0)
+	layout.add_child(_label("CAMINO DE CULTIVO", 11, "#c4a575"))
+	layout.add_child(path_select)
+	var actions := VBoxContainer.new()
+	actions.add_theme_constant_override("separation", 10)
+	layout.add_child(actions)
+	actions.add_child(_button("DESPERTAR MI CAMINO", func():
+		var chosen_name := name_input.text.strip_edges()
+		if chosen_name.is_empty():
+			name_input.placeholder_text = "Escribe un nombre para continuar"
+			return
+		character = {
+			"name": chosen_name,
+			"origin": origin_select.get_item_text(origin_select.selected),
+			"affinity": root_select.get_item_text(root_select.selected),
+			"path": path_select.get_item_text(path_select.selected),
+			"comprehension": 1,
+			"vitality": 1,
+			"insight": 0,
+			"realm": "Despertar",
+		}
+		_save_character()
+		_show_dashboard()
+	))
+	actions.add_child(_button("VOLVER", _show_menu))
 
-	var title := Label.new()
-	title.text = "El destino no se hereda.\nSe conquista."
-	title.add_theme_font_size_override("font_size", 48)
-	title.add_theme_color_override("font_color", Color("#f0e9dc"))
-	layout.add_child(title)
+func _show_dashboard() -> void:
+	_clear_screen()
+	var layout := _make_layout()
+	layout.add_child(_label("SIETE RAÍCES  /  REGISTRO DEL CULTIVADOR", 12, "#d6b77f"))
+	layout.add_child(_label(str(character.get("name", "Cultivador")), 40))
+	layout.add_child(_label("%s  ·  Afinidad: %s  ·  Camino: %s" % [character.get("origin", ""), character.get("affinity", ""), character.get("path", "")], 14, "#c4a575"))
+	layout.add_child(_label("REINO ACTUAL  ·  %s" % character.get("realm", "Despertar"), 12, "#a6a7b1"))
+	var stats := HBoxContainer.new()
+	stats.add_theme_constant_override("separation", 20)
+	layout.add_child(stats)
+	stats.add_child(_label("COMPRENSIÓN\n%s" % character.get("comprehension", 1), 18, "#e4c58e"))
+	stats.add_child(_label("VITALIDAD\n%s" % character.get("vitality", 1), 18, "#9eb6d5"))
+	stats.add_child(_label("HALLAZGOS\n%s" % character.get("insight", 0), 18, "#b8a4d9"))
+	layout.add_child(_label("PRÁCTICAS INICIALES", 11, "#c4a575"))
+	layout.add_child(_label("Cada práctica desarrolla una dimensión distinta. El progreso se guarda en este dispositivo.", 14, "#a6a7b1"))
+	var actions := HBoxContainer.new()
+	actions.add_theme_constant_override("separation", 10)
+	layout.add_child(actions)
+	actions.add_child(_button("MEDITAR  +1 COMPRENSIÓN", func():
+		character["comprehension"] = int(character.get("comprehension", 1)) + 1
+		_save_character()
+		_show_dashboard()
+	))
+	actions.add_child(_button("ENTRENAR  +1 VITALIDAD", func():
+		character["vitality"] = int(character.get("vitality", 1)) + 1
+		_save_character()
+		_show_dashboard()
+	))
+	var second_row := HBoxContainer.new()
+	second_row.add_theme_constant_override("separation", 10)
+	layout.add_child(second_row)
+	second_row.add_child(_button("EXPLORAR  +1 HALLAZGO", func():
+		character["insight"] = int(character.get("insight", 0)) + 1
+		_save_character()
+		_show_dashboard()
+	))
+	second_row.add_child(_button("CONSULTAR LAS RAÍCES", _show_codex))
+	var world_row := HBoxContainer.new()
+	world_row.add_theme_constant_override("separation", 10)
+	layout.add_child(world_row)
+	world_row.add_child(_button("EXPLORAR LAS CINCO REGIONES", _show_regions))
+	world_row.add_child(_button("PABELLÓN DE LAS OPORTUNIDADES", _show_missions))
+	layout.add_child(_button("REINICIAR PERSONAJE", _confirm_reset))
+	var filler := Control.new()
+	filler.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	layout.add_child(filler)
+	layout.add_child(_label("GUARDADO LOCAL · user://siete_raices_save.json", 10, "#777d8c"))
 
-	var description := Label.new()
-	description.text = "Siete raíces sostienen la existencia. Infinitos caminos esperan a quienes se atrevan a comprenderlas."
-	description.custom_minimum_size.x = 540
-	description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	description.add_theme_font_size_override("font_size", 17)
-	description.add_theme_color_override("font_color", Color("#a6a7b1"))
-	layout.add_child(description)
 
-	var gap := Control.new()
-	gap.custom_minimum_size.y = 18
-	layout.add_child(gap)
+func _show_regions() -> void:
+	_clear_screen()
+	var layout := _make_layout()
+	layout.add_child(_label("MAPA DE LA TRAMA  /  CINCO REGIONES", 12, "#d6b77f"))
+	layout.add_child(_label("El mundo que puedes recorrer", 36))
+	layout.add_child(_label("Cada región tiene una escena 3D propia, un paisaje distinto y descubrimientos que se guardan en tu registro.", 14, "#a6a7b1"))
+	var discovered: Array = character.get("discovered_regions", [])
+	for region in WORLD_DATA.get_entries("regions"):
+		var block := VBoxContainer.new()
+		block.add_theme_constant_override("separation", 5)
+		block.add_child(_label(str(region.get("order", 0)).pad_zeros(2) + "  /  " + str(region.get("name", "Región")), 19, "#e4c58e"))
+		block.add_child(_label(str(region.get("summary", "")), 13, "#a6a7b1"))
+		var state := "DESCUBIERTA" if discovered.has(region.get("id", "")) else "SIN EXPLORAR"
+		block.add_child(_label(state, 10, "#8eb8a2" if discovered.has(region.get("id", "")) else "#b8a4d9"))
+		var scene_path := str(region.get("scene_path", ""))
+		block.add_child(_button("ENTRAR EN LA REGIÓN", Callable(self, "_launch_region").bind(scene_path)))
+		layout.add_child(block)
+	layout.add_child(_button("VOLVER AL REGISTRO", _show_dashboard))
 
-	var buttons := HBoxContainer.new()
-	buttons.add_theme_constant_override("separation", 14)
-	layout.add_child(buttons)
 
-	var begin_button := Button.new()
-	begin_button.text = "  INICIAR CAMINO  "
-	begin_button.custom_minimum_size = Vector2(190, 48)
-	begin_button.pressed.connect(_on_begin_pressed)
-	buttons.add_child(begin_button)
+func _launch_region(scene_path: String) -> void:
+	if scene_path.is_empty() or not ResourceLoader.exists(scene_path):
+		push_error("No se encontró la escena de región: " + scene_path)
+		return
+	get_tree().change_scene_to_file(scene_path)
 
-	var codex_button := Button.new()
-	codex_button.text = "  VER LAS SIETE RAÍCES  "
-	codex_button.custom_minimum_size = Vector2(210, 48)
-	codex_button.pressed.connect(_on_codex_pressed)
-	buttons.add_child(codex_button)
 
-	status_label = Label.new()
-	status_label.text = "PROTOTIPO 0.1.0  ·  EL VIAJE AÚN NO HA COMENZADO"
-	status_label.add_theme_font_size_override("font_size", 11)
-	status_label.add_theme_color_override("font_color", Color("#888b98"))
-	layout.add_child(status_label)
+func _show_missions() -> void:
+	_clear_screen()
+	var layout := _make_layout()
+	layout.add_child(_label("PABELLÓN DE LAS OPORTUNIDADES", 12, "#d6b77f"))
+	layout.add_child(_label("Misiones y descubrimientos", 36))
+	layout.add_child(_label("Completa objetivos de exploración, investigación, diplomacia, memoria y cultivo. Las recompensas se guardan en tu personaje.", 14, "#a6a7b1"))
+	var completed: Array = character.get("completed_missions", [])
+	var progress: Dictionary = character.get("mission_progress", {})
+	for mission in WORLD_DATA.get_entries("missions"):
+		var mission_id := str(mission.get("id", ""))
+		var required := int(mission.get("required_steps", 1))
+		var current := int(progress.get(mission_id, 0))
+		var block := VBoxContainer.new()
+		block.add_theme_constant_override("separation", 5)
+		block.add_child(_label(str(mission.get("name", "Misión")), 18, "#e4c58e"))
+		block.add_child(_label(str(mission.get("region_name", "")) + "  ·  " + str(mission.get("type", "Exploración")), 10, "#c4a575"))
+		block.add_child(_label(str(mission.get("summary", "")), 13, "#a6a7b1"))
+		block.add_child(_label("OBJETIVO: " + str(mission.get("objective", "")), 12, "#d2d6df"))
+		if completed.has(mission_id):
+			block.add_child(_label("COMPLETADA  ·  RECOMPENSA REGISTRADA", 11, "#8eb8a2"))
+		else:
+			block.add_child(_label("PROGRESO: %d / %d" % [current, required], 11, "#b8a4d9"))
+			block.add_child(_button("REGISTRAR AVANCE", Callable(self, "_advance_mission").bind(mission_id)))
+		layout.add_child(block)
+	layout.add_child(_button("VOLVER AL REGISTRO", _show_dashboard))
 
-	var bottom_spacer := Control.new()
-	bottom_spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	layout.add_child(bottom_spacer)
 
-	var principle := Label.new()
-	principle.text = "NINGÚN PERSONAJE TIENE GARANTIZADA LA GRANDEZA."
-	principle.add_theme_font_size_override("font_size", 11)
-	principle.add_theme_color_override("font_color", Color("#c7a878"))
-	layout.add_child(principle)
+func _advance_mission(mission_id: String) -> void:
+	var mission: Dictionary = {}
+	for entry in WORLD_DATA.get_entries("missions"):
+		if str(entry.get("id", "")) == mission_id:
+			mission = entry
+			break
+	if mission.is_empty():
+		return
 
-func _on_begin_pressed() -> void:
-	status_label.text = "CREACIÓN DE PERSONAJE: PRÓXIMO MÓDULO EN DESARROLLO"
+	var completed: Array = character.get("completed_missions", [])
+	if completed.has(mission_id):
+		return
+	var progress: Dictionary = character.get("mission_progress", {})
+	var current := int(progress.get(mission_id, 0)) + 1
+	var required := int(mission.get("required_steps", 1))
+	if current >= required:
+		completed.append(mission_id)
+		progress.erase(mission_id)
+		var reward: Dictionary = mission.get("reward", {})
+		for stat in ["insight", "comprehension", "vitality"]:
+			if reward.has(stat):
+				character[stat] = int(character.get(stat, 0)) + int(reward[stat])
+	else:
+		progress[mission_id] = current
+	character["completed_missions"] = completed
+	character["mission_progress"] = progress
+	_save_character()
+	_show_missions()
 
-func _on_codex_pressed() -> void:
-	var names: Array[String] = []
-	for root in WORLD_DATA.ROOTS:
-		names.append(root["name"])
-	status_label.text = "RAÍCES: " + " · ".join(names)
+func _show_codex() -> void:
+	_clear_screen()
+	var layout := _make_layout()
+	layout.add_child(_label("ARCHIVO DE LO PRIMORDIAL  /  CÓDICE", 12, "#d6b77f"))
+	layout.add_child(_label("Las siete raíces", 38))
+	for root in WORLD_DATA.get_roots():
+		var block := VBoxContainer.new()
+		block.add_theme_constant_override("separation", 4)
+		block.add_child(_label(str(root["name"]).to_upper(), 14, "#e4c58e"))
+		block.add_child(_label(str(root["description"]), 13, "#a6a7b1"))
+		layout.add_child(block)
+	layout.add_child(_button("VOLVER", func():
+		if character.is_empty():
+			_show_menu()
+		else:
+			_show_dashboard()
+	))
+
+func _confirm_reset() -> void:
+	var dialog := ConfirmationDialog.new()
+	dialog.dialog_text = "¿Crear un nuevo cultivador? El registro local actual será reemplazado."
+	add_child(dialog)
+	dialog.confirmed.connect(func():
+		character.clear()
+		if FileAccess.file_exists(SAVE_PATH):
+			DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH))
+		_show_creation()
+		dialog.queue_free()
+	)
+	dialog.canceled.connect(func(): dialog.queue_free())
+	dialog.popup_centered()
+
+func _save_character() -> void:
+	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	if file:
+		file.store_string(JSON.stringify(character))
+
+func _load_character() -> bool:
+	if not FileAccess.file_exists(SAVE_PATH):
+		return false
+	var file := FileAccess.open(SAVE_PATH, FileAccess.READ)
+	if file == null:
+		return false
+	var parsed = JSON.parse_string(file.get_as_text())
+	if typeof(parsed) != TYPE_DICTIONARY or not parsed.has("name"):
+		return false
+	character = parsed
+	return true

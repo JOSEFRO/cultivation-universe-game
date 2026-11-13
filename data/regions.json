@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "region-mortal-continents",
+      "name": "Continentes Mortales",
+      "status": "proposal",
+      "summary": "Valles, caminos antiguos y aldeas donde los primeros cultivadores descubren que el mundo es más grande de lo que imaginaban.",
+      "scene_path": "res://scenes/world/regions/mortal_continents.tscn",
+      "palette": {
+        "sky": "#8197a8",
+        "ground": "#435b4b",
+        "accent": "#d4b477"
+      },
+      "landmarks": [
+        "Valle de los Ecos",
+        "Puente de Piedra",
+        "Santuario de las Campanas"
+      ],
+      "order": 1
+    },
+    {
+      "id": "region-sect-domains",
+      "name": "Dominio de las Sectas",
+      "status": "proposal",
+      "summary": "Patios de aprendizaje, pabellones elevados y senderos de prueba donde las escuelas valoran la comprensión y el carácter.",
+      "scene_path": "res://scenes/world/regions/sect_domains.tscn",
+      "palette": {
+        "sky": "#596b83",
+        "ground": "#4c5360",
+        "accent": "#d5b66e"
+      },
+      "landmarks": [
+        "Patio del Horizonte",
+        "Pabellón de los Siete Juicios",
+        "Jardín de los Discípulos"
+      ],
+      "order": 2
+    },
+    {
+      "id": "region-ancient-sea",
+      "name": "Mar de los Antiguos",
+      "status": "proposal",
+      "summary": "Un océano de niebla azul, islas suspendidas y ruinas que conservan recuerdos de civilizaciones desaparecidas.",
+      "scene_path": "res://scenes/world/regions/ancient_sea.tscn",
+      "palette": {
+        "sky": "#385e78",
+        "ground": "#234b61",
+        "accent": "#87d5d0"
+      },
+      "landmarks": [
+        "Islas del Recuerdo",
+        "Biblioteca Sumergida",
+        "Faro de la Marea Quieta"
+      ],
+      "order": 3
+    },
+    {
+      "id": "region-fragmented-heavens",
+      "name": "Cielos Fragmentados",
+      "status": "proposal",
+      "summary": "Fragmentos de tierra flotan entre corrientes de energía; orientarse exige comprender las relaciones entre espacio y tiempo.",
+      "scene_path": "res://scenes/world/regions/fragmented_heavens.tscn",
+      "palette": {
+        "sky": "#554d78",
+        "ground": "#4c426c",
+        "accent": "#c4a8f0"
+      },
+      "landmarks": [
+        "Puentes Suspendidos",
+        "Observatorio de las Eras",
+        "Jardines del Viento"
+      ],
+      "order": 4
+    },
+    {
+      "id": "region-root-domain",
+      "name": "Dominio de las Raíces",
+      "status": "proposal",
+      "summary": "Un territorio primordial donde la Trama se hace visible y cada raíz revela una forma distinta de interpretar la existencia.",
+      "scene_path": "res://scenes/world/regions/root_domain.tscn",
+      "palette": {
+        "sky": "#263f48",
+        "ground": "#294b3d",
+        "accent": "#d8c27d"
+      },
+      "landmarks": [
+        "Árbol de la Trama",
+        "Círculo de las Siete Raíces",
+        "Fuente del Origen"
+      ],
+      "order": 5
+    }
+  ]
+}

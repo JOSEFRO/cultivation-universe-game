@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "realm-awakening",
+      "name": "Despertar",
+      "status": "proposal",
+      "summary": "El cultivador percibe por primera vez el flujo de su afinidad."
+    },
+    {
+      "id": "realm-foundation",
+      "name": "Fundamento",
+      "status": "proposal",
+      "summary": "La comprensión inicial se convierte en una base estable."
+    },
+    {
+      "id": "realm-channeling",
+      "name": "Canalización",
+      "status": "proposal",
+      "summary": "La energía se conduce con intención y control."
+    },
+    {
+      "id": "realm-core",
+      "name": "Núcleo",
+      "status": "proposal",
+      "summary": "La esencia personal adquiere coherencia y profundidad."
+    },
+    {
+      "id": "realm-soul-nascent",
+      "name": "Alma Naciente",
+      "status": "proposal",
+      "summary": "La percepción supera los límites de la experiencia cotidiana."
+    }
+  ]
+}
