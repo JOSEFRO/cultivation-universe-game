@@ -394,8 +394,9 @@ func _add_island(position: Vector3, stone: Material, vegetation: Material) -> vo
 func _add_distant_mountain_ridge(material_color: Color) -> void:
 	var mountain_material := _make_material(material_color)
 	for index in range(7):
-		var mountain := ConeMesh.new()
+		var mountain := CylinderMesh.new()
+		mountain.top_radius = 0.0
+		mountain.bottom_radius = 8.0
 		mountain.radial_segments = 5
 		mountain.height = 12.0 + float(index % 3) * 4.0
-		mountain.bottom_radius = 8.0
 		_add_mesh(mountain, mountain_material, Vector3(-30.0 + index * 10.0, 3.0, -34.0), Vector3(1.2, 1.0, 0.8))
