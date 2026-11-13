@@ -32,85 +32,110 @@ func _build_environment() -> void:
 	var accent := Color(str(palette.get("accent", "#d4b477")))
 
 	var environment := Environment.new()
-	environment.background_mode = Environment.BG_COLOR
-	environment.background_color = sky
-	environment.ambient_light_color = sky.lightened(0.25)
-	environment.ambient_light_energy = 0.7
+	environment.background_mode = Environment.BG_SKY
+	var sky_material := ProceduralSkyMaterial.new()
+	sky_material.sky_top_color = sky.darkened(0.18)
+	sky_material.sky_horizon_color = sky.lightened(0.24)
+	sky_material.ground_bottom_color = ground.darkened(0.35)
+	sky_material.ground_horizon_color = ground
+	var sky_resource := Sky.new()
+	sky_resource.sky_material = sky_material
+	environment.sky = sky_resource
+	environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+	environment.ambient_light_color = Color("#d7c5ad")
+	environment.ambient_light_energy = 0.72
+	environment.tonemap_mode = Environment.TONE_MAPPER_FILMIC
+	environment.fog_enabled = true
+	environment.fog_light_color = sky.lightened(0.32)
+	environment.fog_density = 0.006
 	var world_environment := WorldEnvironment.new()
 	world_environment.environment = environment
 	add_child(world_environment)
 
 	var sunlight := DirectionalLight3D.new()
-	sunlight.rotation_degrees = Vector3(-48.0, -32.0, 0.0)
-	sunlight.light_color = Color("#ffe8c5")
-	sunlight.light_energy = 1.1
+	sunlight.rotation_degrees = Vector3(-42.0, -28.0, 0.0)
+	sunlight.light_color = Color("#ffe5c2")
+	sunlight.light_energy = 1.25
 	sunlight.shadow_enabled = true
 	add_child(sunlight)
 
 	var ground_mesh := PlaneMesh.new()
-	ground_mesh.size = Vector2(90.0, 90.0)
+	ground_mesh.size = Vector2(100.0, 100.0)
 	_add_mesh(ground_mesh, _make_material(ground), Vector3.ZERO)
 	var floor_body := StaticBody3D.new()
 	floor_body.name = "WalkableGround"
 	var floor_collision := CollisionShape3D.new()
 	var floor_shape := BoxShape3D.new()
-	floor_shape.size = Vector3(90.0, 0.4, 90.0)
+	floor_shape.size = Vector3(100.0, 0.4, 100.0)
 	floor_collision.shape = floor_shape
 	floor_collision.position.y = -0.2
 	floor_body.add_child(floor_collision)
 	add_child(floor_body)
 
-	for index in range(4):
-		var hill := SphereMesh.new()
-		_add_mesh(hill, _make_material(ground.lightened(0.12)), Vector3(-18.0 + index * 12.0, -1.0, -19.0 - (index % 2) * 5.0), Vector3(7.0, 1.7, 5.0))
-
+	# A clear stone path makes the playable route readable.
+	var path_mesh := BoxMesh.new()
+	path_mesh.size = Vector3(5.0, 0.12, 42.0)
+	_add_mesh(path_mesh, _make_material(Color("#8c8170")), Vector3(0, 0.04, -5))
+	for side in [-1.0, 1.0]:
+		for index in range(8):
+			_add_bamboo(Vector3(side * (8.0 + float(index % 2) * 1.5), 0, -19.0 + index * 5.0), 0.85 + float(index % 3) * 0.12)
 	for index in range(5):
-		_add_column(Vector3(-12.0 + index * 6.0, 0.0, -8.0), 0.8, 3.4, _make_material(accent.darkened(0.25)))
-
-
+		_add_lantern(Vector3(-3.8 + index * 1.9, 0, -2.0 - float(index % 2) * 7.0), accent)
+	_add_distant_mountain_ridge(ground.lightened(0.10))
 func _build_landmarks() -> void:
 	var palette: Dictionary = _region.get("palette", {})
 	var accent := Color(str(palette.get("accent", "#d4b477")))
-	var stone := _make_material(Color("#8b8d91"))
-	var glow := _make_material(accent, true)
+	var jade := _make_material(Color("#4d806d"))
+	var stone := _make_material(Color("#8b8174"))
+	var roof := _make_material(Color("#293f48"))
+	var red := _make_material(Color("#8e3e35"))
+	var gold := _make_material(accent, true)
 
 	match region_id:
 		"region-mortal-continents":
-			for point in [Vector3(-14, 0, 7), Vector3(-7, 0, 12), Vector3(8, 0, 8), Vector3(15, 0, 13)]:
-				_add_tree(point, 1.0, stone, glow)
-			_add_arch(Vector3(0, 0, -5), stone, 4.5)
+			_build_chinese_pavilion(Vector3(0, 0, -13), 1.25, red, roof, gold, stone)
+			for point in [Vector3(-14, 0, 7), Vector3(-10, 0, -5), Vector3(12, 0, 8), Vector3(15, 0, -10)]:
+				_add_tree(point, 1.1, stone, jade)
+			_add_stone_bridge(Vector3(0, 0, 9), stone)
 		"region-sect-domains":
-			for x in [-12.0, -6.0, 6.0, 12.0]:
-				_add_column(Vector3(x, 0, -4), 0.65, 6.0, stone)
-			for step in range(5):
+			_build_chinese_pavilion(Vector3(0, 0, -14), 1.7, red, roof, gold, stone)
+			_build_chinese_pavilion(Vector3(-13, 0, -4), 0.8, red, roof, gold, stone)
+			_build_chinese_pavilion(Vector3(13, 0, -4), 0.8, red, roof, gold, stone)
+			for step in range(8):
 				var stair := BoxMesh.new()
-				stair.size = Vector3(8.0, 0.35, 1.1)
-				_add_mesh(stair, stone, Vector3(0, 0.18 + step * 0.25, 7.0 - step * 1.0))
-			for x in [-8.0, 0.0, 8.0]:
-				_add_mesh(SphereMesh.new(), glow, Vector3(x, 3.4, -3), Vector3(0.28, 0.28, 0.28))
+				stair.size = Vector3(9.0, 0.28, 1.1)
+				_add_mesh(stair, stone, Vector3(0, 0.14 + step * 0.22, 7.0 - step * 1.05))
+			for x in [-8.0, 8.0]:
+				_add_lantern(Vector3(x, 0, 4), accent)
 		"region-ancient-sea":
 			var water := PlaneMesh.new()
-			water.size = Vector2(80, 80)
-			_add_mesh(water, _make_material(Color("#245c78")), Vector3(0, -0.08, 0))
-			for point in [Vector3(-13, 1.2, -8), Vector3(0, 2.0, -15), Vector3(13, 1.0, -6), Vector3(8, 0.8, 12)]:
-				_add_mesh(SphereMesh.new(), _make_material(Color("#627e80")), point, Vector3(4.0, 0.9, 3.0))
-				_add_column(point + Vector3(0, 1.5, 0), 0.45, 3.0, glow)
+			water.size = Vector2(90, 90)
+			var water_material := _make_material(Color("#28677c"))
+			water_material.metallic = 0.25
+			water_material.roughness = 0.24
+			_add_mesh(water, water_material, Vector3(0, -0.12, 0))
+			for point in [Vector3(-14, 0.7, -8), Vector3(0, 1.2, -17), Vector3(14, 0.8, -7), Vector3(9, 0.6, 12)]:
+				_add_island(point, stone, jade)
+			_build_chinese_pavilion(Vector3(0, 1.0, -16), 0.75, red, roof, gold, stone)
+			_add_stone_bridge(Vector3(0, 0, 8), stone)
 		"region-fragmented-heavens":
-			for index in range(6):
-				var point := Vector3(-15.0 + index * 6.0, 2.0 + float(index % 3) * 2.0, -12.0 - float(index % 2) * 5.0)
-				_add_mesh(SphereMesh.new(), _make_material(Color("#6d648b")), point, Vector3(3.2, 0.75, 2.6))
-				_add_column(point + Vector3(0, 1.0, 0), 0.35, 2.0, glow)
-			_add_arch(Vector3(0, 0, 3), glow, 3.2)
-		"region-root-domain":
-			_add_column(Vector3(0, 0, -8), 1.2, 13.0, glow)
-			_add_mesh(SphereMesh.new(), _make_material(Color("#668d69"), true), Vector3(0, 7.5, -8), Vector3(5.5, 4.2, 5.5))
 			for index in range(7):
-				var angle := TAU * float(index) / 7.0
-				var point := Vector3(cos(angle) * 9.0, 0.3, -8.0 + sin(angle) * 9.0)
-				_add_mesh(SphereMesh.new(), glow, point, Vector3(0.55, 0.55, 0.55))
-				_add_column(point, 0.22, 2.2, stone)
-
-
+				var point := Vector3(-18.0 + index * 6.0, 1.4 + float(index % 3) * 2.0, -13.0 - float(index % 2) * 5.0)
+				_add_island(point, stone, jade)
+				_add_bamboo(point + Vector3(0, 0.8, 0), 0.65)
+			_build_chinese_pavilion(Vector3(0, 3.0, -13), 1.0, red, roof, gold, stone)
+			_add_stone_bridge(Vector3(0, 0, 4), stone)
+			for x in [-13.0, 13.0]:
+				_add_lantern(Vector3(x, 1.0, 2), accent)
+		"region-root-domain":
+			_add_column(Vector3(0, 0, -10), 1.6, 15.0, gold)
+			_add_mesh(SphereMesh.new(), _make_material(Color("#668d69"), true), Vector3(0, 8.5, -10), Vector3(7.0, 5.0, 7.0))
+			_build_chinese_pavilion(Vector3(-12, 0, -8), 0.8, red, roof, gold, stone)
+			_build_chinese_pavilion(Vector3(12, 0, -8), 0.8, red, roof, gold, stone)
+			for index in range(9):
+				var angle := TAU * float(index) / 9.0
+				var point := Vector3(cos(angle) * 10.0, 0.3, -10.0 + sin(angle) * 10.0)
+				_add_lantern(point, accent)
 func _build_player() -> void:
 	var player := CharacterBody3D.new()
 	player.name = "Player"
@@ -140,41 +165,31 @@ func _build_player() -> void:
 
 
 func _build_player_visual(player: CharacterBody3D) -> void:
-	# Drop a licensed GLB at this path to replace the temporary capsule mannequin.
-	# The existing CharacterBody3D controller and collision remain unchanged.
-	var model_path := "res://assets/characters/player/player.glb"
-	if ResourceLoader.exists(model_path):
-		var model_resource: Resource = load(model_path)
-		if model_resource is PackedScene:
-			var model := (model_resource as PackedScene).instantiate()
-			model.name = "ImportedPlayerVisual"
-			model.position = Vector3(0, 0, 0)
-			model.scale = Vector3.ONE
-			player.add_child(model)
-			return
-		push_warning("El archivo del personaje existe, pero no se pudo instanciar como escena: " + model_path)
+	# Stylized original xianxia-inspired robe character built from Godot meshes.
+	# The visual is separate from the CharacterBody3D, so movement/collision stay intact.
+	var skin := _make_material(Color("#e0b99a"))
+	var robe := _make_material(Color("#e8e0cf"))
+	var inner_robe := _make_material(Color("#294d61"))
+	var sash := _make_material(Color("#9b493e"))
+	var hair := _make_material(Color("#171b25"))
+	var gold := _make_material(Color("#c5a66d"), true)
 
-	# Fallback while the final licensed GLB has not been added.
-	var robe := MeshInstance3D.new()
-	robe.name = "TemporaryRobe"
-	robe.position.y = 0.88
-	var robe_mesh := CapsuleMesh.new()
-	robe_mesh.radius = 0.32
-	robe_mesh.height = 1.35
-	robe.mesh = robe_mesh
-	robe.material_override = _make_material(Color("#d7c6a2"))
-	player.add_child(robe)
-
-	var head := MeshInstance3D.new()
-	head.name = "TemporaryHead"
-	head.position.y = 1.72
-	var head_mesh := SphereMesh.new()
-	head_mesh.radius = 0.22
-	head.mesh = head_mesh
-	head.material_override = _make_material(Color("#d8b89a"))
-	player.add_child(head)
-
-
+	_add_mesh(CapsuleMesh.new(), robe, Vector3(0, 0.88, 0), Vector3(0.92, 1.22, 0.72))
+	_add_mesh(SphereMesh.new(), skin, Vector3(0, 1.72, 0), Vector3(0.78, 0.9, 0.78))
+	_add_mesh(SphereMesh.new(), hair, Vector3(0, 1.91, -0.02), Vector3(0.82, 0.56, 0.82))
+	_add_mesh(SphereMesh.new(), hair, Vector3(0, 2.24, -0.12), Vector3(0.28, 0.36, 0.28))
+	_add_mesh(CylinderMesh.new(), inner_robe, Vector3(0, 1.14, -0.015), Vector3(0.55, 0.95, 0.55))
+	_add_mesh(CylinderMesh.new(), sash, Vector3(0, 1.15, 0), Vector3(0.99, 0.12, 0.99))
+	# Long sleeves and layered robe panels.
+	_add_mesh(CapsuleMesh.new(), robe, Vector3(-0.39, 1.20, 0), Vector3(0.43, 0.92, 0.48))
+	_add_mesh(CapsuleMesh.new(), robe, Vector3(0.39, 1.20, 0), Vector3(0.43, 0.92, 0.48))
+	_add_mesh(BoxMesh.new(), inner_robe, Vector3(-0.16, 0.64, -0.31), Vector3(0.24, 0.86, 0.06))
+	_add_mesh(BoxMesh.new(), inner_robe, Vector3(0.16, 0.64, -0.31), Vector3(0.24, 0.86, 0.06))
+	_add_mesh(CapsuleMesh.new(), hair, Vector3(0, 1.45, 0.31), Vector3(0.16, 1.25, 0.18))
+	_add_mesh(SphereMesh.new(), gold, Vector3(0, 2.47, -0.12), Vector3(0.13, 0.09, 0.13))
+	# Boots.
+	_add_mesh(BoxMesh.new(), _make_material(Color("#342f35")), Vector3(-0.16, 0.12, -0.03), Vector3(0.32, 0.22, 0.48))
+	_add_mesh(BoxMesh.new(), _make_material(Color("#342f35")), Vector3(0.16, 0.12, -0.03), Vector3(0.32, 0.22, 0.48))
 func _build_hud() -> void:
 	var layer := CanvasLayer.new()
 	add_child(layer)
@@ -301,3 +316,86 @@ func _add_arch(position: Vector3, material: Material, height: float) -> void:
 	var beam := BoxMesh.new()
 	beam.size = Vector3(5.0, 0.55, 0.8)
 	_add_mesh(beam, material, position + Vector3(0, height, 0))
+
+
+func _add_bamboo(position: Vector3, scale_factor: float) -> void:
+	var green := _make_material(Color("#3f7155"))
+	var dark_green := _make_material(Color("#294f42"))
+	for stalk in range(3):
+		var offset := Vector3((stalk - 1) * 0.32, 0, (stalk % 2) * 0.18)
+		var stem := CylinderMesh.new()
+		stem.top_radius = 0.045 * scale_factor
+		stem.bottom_radius = 0.07 * scale_factor
+		stem.height = 5.0 * scale_factor
+		_add_mesh(stem, green, position + offset + Vector3(0, 2.5 * scale_factor, 0))
+		for joint in range(1, 5):
+			_add_mesh(SphereMesh.new(), dark_green, position + offset + Vector3(0, joint * scale_factor, 0), Vector3(0.09, 0.055, 0.09) * scale_factor)
+		for leaf in range(4):
+			var leaf_mesh := SphereMesh.new()
+			_add_mesh(leaf_mesh, green, position + offset + Vector3((leaf - 1.5) * 0.28, (2.2 + leaf * 0.48) * scale_factor, -0.18), Vector3(0.32, 0.055, 0.11) * scale_factor)
+
+
+func _add_lantern(position: Vector3, accent: Color) -> void:
+	var post := _make_material(Color("#513a30"))
+	var red := _make_material(Color("#9b4035"))
+	var glow := _make_material(accent, true)
+	_add_column(position, 0.075, 2.4, post)
+	_add_mesh(BoxMesh.new(), red, position + Vector3(0, 2.45, 0), Vector3(0.55, 0.55, 0.55))
+	_add_mesh(BoxMesh.new(), glow, position + Vector3(0, 2.45, 0), Vector3(0.38, 0.42, 0.38))
+	_add_mesh(CylinderMesh.new(), post, position + Vector3(0, 2.82, 0), Vector3(0.38, 0.08, 0.38))
+
+
+func _build_chinese_pavilion(position: Vector3, scale_factor: float, red: Material, roof: Material, gold: Material, stone: Material) -> void:
+	var base := BoxMesh.new()
+	base.size = Vector3(9.0, 0.55, 7.0) * scale_factor
+	_add_mesh(base, stone, position + Vector3(0, 0.28 * scale_factor, 0))
+	for x in [-3.4, 3.4]:
+		for z in [-2.5, 2.5]:
+			_add_column(position + Vector3(x * scale_factor, 0.55 * scale_factor, z * scale_factor), 0.22 * scale_factor, 3.8 * scale_factor, red)
+	var floor := BoxMesh.new()
+	floor.size = Vector3(8.0, 0.18, 6.0) * scale_factor
+	_add_mesh(floor, _make_material(Color("#a78a69")), position + Vector3(0, 0.72 * scale_factor, 0))
+	# Four sloped eaves form a recognizable Chinese hip roof silhouette.
+	for side in range(4):
+		var eave := BoxMesh.new()
+		eave.size = Vector3(9.8, 0.28, 2.35) * scale_factor
+		var angle := float(side) * PI * 0.5
+		var offset := Vector3(cos(angle) * 1.8, 4.15, sin(angle) * 1.8) * scale_factor
+		var piece := MeshInstance3D.new()
+		piece.mesh = eave
+		piece.material_override = roof
+		piece.position = position + offset
+		piece.rotation = Vector3(0, angle, -0.18)
+		add_child(piece)
+	var ridge := BoxMesh.new()
+	ridge.size = Vector3(5.4, 0.32, 0.42) * scale_factor
+	_add_mesh(ridge, gold, position + Vector3(0, 4.45 * scale_factor, 0))
+	for x in [-2.4, 2.4]:
+		_add_mesh(SphereMesh.new(), gold, position + Vector3(x * scale_factor, 4.5 * scale_factor, 0), Vector3(0.22, 0.18, 0.22) * scale_factor)
+
+
+func _add_stone_bridge(position: Vector3, stone: Material) -> void:
+	for index in range(9):
+		var step := BoxMesh.new()
+		step.size = Vector3(4.2, 0.35, 1.0)
+		var y := 0.18 + sin(float(index) / 8.0 * PI) * 1.25
+		_add_mesh(step, stone, position + Vector3(0, y, 4.0 - index))
+	for side in [-1.0, 1.0]:
+		_add_column(position + Vector3(side * 1.8, 0.45, 0), 0.12, 1.0, stone)
+
+
+func _add_island(position: Vector3, stone: Material, vegetation: Material) -> void:
+	_add_mesh(SphereMesh.new(), stone, position + Vector3(0, -0.5, 0), Vector3(4.8, 1.3, 3.8))
+	_add_mesh(SphereMesh.new(), vegetation, position + Vector3(0, 0.28, 0), Vector3(4.4, 0.28, 3.4))
+	for edge in [-1.0, 1.0]:
+		_add_mesh(ConeMesh.new(), stone, position + Vector3(edge * 1.6, -2.0, 0), Vector3(0.85, 2.5, 0.85))
+
+
+func _add_distant_mountain_ridge(material_color: Color) -> void:
+	var mountain_material := _make_material(material_color)
+	for index in range(7):
+		var mountain := ConeMesh.new()
+		mountain.radial_segments = 5
+		mountain.height = 12.0 + float(index % 3) * 4.0
+		mountain.bottom_radius = 8.0
+		_add_mesh(mountain, mountain_material, Vector3(-30.0 + index * 10.0, 3.0, -34.0), Vector3(1.2, 1.0, 0.8))
