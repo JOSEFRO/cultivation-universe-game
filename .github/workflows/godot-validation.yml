@@ -1,31 +1,49 @@
-name: Godot data validation
+name: Godot 4.7.2 validation
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - test/godot-4.7.2-validation
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
-  validate-data:
+  validate-game:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Godot
+
+      - name: Setup Godot 4.7.2
         uses: chickensoft-games/setup-godot@v2
         with:
-          version: 4.3.0
+          version: 4.7.2
           use-dotnet: false
-      - name: Validate world catalogs
-        shell: bash
+
+      - name: Verify engine version
         run: |
-          output="$(godot --headless --path . --quit-after 10 --script res://tests/validate_data.gd 2>&1)"
-          printf '%s\\n' "$output"
-          printf '%s\\n' "$output" | grep -F "SIETE RAÍCES: regiones, misiones y catálogos validados correctamente."
-      - name: Launch main scene headlessly
-        shell: bash
+          godot --version
+          godot --version | grep -F "4.7.2"
+
+      - name: Import project and parse resources
+        run: godot --headless --editor --path . --quit
+
+      - name: Validate world catalogs and region resources
         run: |
-          output="$(godot --headless --path . --quit-after 5 2>&1)"
-          printf '%s\\n' "$output"
-          printf '%s\\n' "$output" | grep -F "SIETE RAÍCES: escena principal inicializada."
+          output="$(godot --headless --path . --quit-after 20 --script res://tests/validate_data.gd 2>&1)"
+          printf '%s\n' "$output"
+          printf '%s\n' "$output" | grep -F "SIETE RAÍCES: regiones, misiones y catálogos validados correctamente."
+
+      - name: Run all five region scenes
+        run: |
+          output="$(godot --headless --path . --quit-after 30 --script res://tests/validate_regions.gd 2>&1)"
+          printf '%s\n' "$output"
+          printf '%s\n' "$output" | grep -F "SIETE RAÍCES: las cinco regiones se instanciaron correctamente."
+
+      - name: Launch main scene
+        run: |
+          output="$(godot --headless --path . --quit-after 10 2>&1)"
+          printf '%s\n' "$output"
+          printf '%s\n' "$output" | grep -F "SIETE RAÍCES: escena principal inicializada."
