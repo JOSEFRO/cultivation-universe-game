@@ -125,22 +125,7 @@ func _build_player() -> void:
 	collision.shape = capsule_shape
 	player.add_child(collision)
 
-	var robe := MeshInstance3D.new()
-	robe.position.y = 0.88
-	var robe_mesh := CapsuleMesh.new()
-	robe_mesh.radius = 0.32
-	robe_mesh.height = 1.35
-	robe.mesh = robe_mesh
-	robe.material_override = _make_material(Color("#d7c6a2"))
-	player.add_child(robe)
-
-	var head := MeshInstance3D.new()
-	head.position.y = 1.72
-	var head_mesh := SphereMesh.new()
-	head_mesh.radius = 0.22
-	head.mesh = head_mesh
-	head.material_override = _make_material(Color("#d8b89a"))
-	player.add_child(head)
+	_build_player_visual(player)
 
 	add_child(player)
 
@@ -152,6 +137,42 @@ func _build_player() -> void:
 	camera.fov = 42.0
 	camera_rig.add_child(camera)
 	add_child(camera_rig)
+
+
+func _build_player_visual(player: CharacterBody3D) -> void:
+	# Drop a licensed GLB at this path to replace the temporary capsule mannequin.
+	# The existing CharacterBody3D controller and collision remain unchanged.
+	var model_path := "res://assets/characters/player/player.glb"
+	if ResourceLoader.exists(model_path):
+		var model_resource: Resource = load(model_path)
+		if model_resource is PackedScene:
+			var model := (model_resource as PackedScene).instantiate()
+			model.name = "ImportedPlayerVisual"
+			model.position = Vector3(0, 0, 0)
+			model.scale = Vector3.ONE
+			player.add_child(model)
+			return
+		push_warning("El archivo del personaje existe, pero no se pudo instanciar como escena: " + model_path)
+
+	# Fallback while the final licensed GLB has not been added.
+	var robe := MeshInstance3D.new()
+	robe.name = "TemporaryRobe"
+	robe.position.y = 0.88
+	var robe_mesh := CapsuleMesh.new()
+	robe_mesh.radius = 0.32
+	robe_mesh.height = 1.35
+	robe.mesh = robe_mesh
+	robe.material_override = _make_material(Color("#d7c6a2"))
+	player.add_child(robe)
+
+	var head := MeshInstance3D.new()
+	head.name = "TemporaryHead"
+	head.position.y = 1.72
+	var head_mesh := SphereMesh.new()
+	head_mesh.radius = 0.22
+	head.mesh = head_mesh
+	head.material_override = _make_material(Color("#d8b89a"))
+	player.add_child(head)
 
 
 func _build_hud() -> void:
