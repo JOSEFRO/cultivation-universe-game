@@ -1,5 +1,22 @@
 # Hoja de ruta de Siete Raíces
 
+## Prioridad inmediata — Primera versión realmente jugable
+
+**Objetivo actual:** verificar un ciclo completo en Windows antes de ampliar el mundo, producir más contenido o iniciar el multijugador.
+
+Orden de trabajo obligatorio:
+1. Menú inicial gráfico funcional y arranque estable.
+2. Personaje visible, movimiento, colisiones y cámara 3/4.
+3. Una región de referencia navegable: Continentes Mortales.
+4. Una misión completa que se active y avance mediante acciones dentro del escenario.
+5. Panel de misiones, progreso y recompensa visible.
+6. Guardar, cerrar y recuperar la partida.
+7. Prueba manual en Windows con evidencias visuales.
+
+La lista detallada y los criterios de aprobación están en [Plan de jugabilidad verificable](PLAYTEST_PLAN.md).
+
+**No se considerará jugable por tener solo pantallas, catálogos, botones o una exportación exitosa.** El primer corte se aprueba cuando el ciclo anterior funciona en una compilación Windows real.
+
 ## Dirección aprobada del proyecto
 
 - **Identidad visual:** cinematográfica 3D. Composición de cámara 3/4, escenarios con profundidad y escala, iluminación atmosférica, siluetas legibles, efectos de cultivo controlados y animaciones con intención narrativa.
@@ -65,5 +82,6 @@
 3. El modo individual debe seguir funcionando durante el desarrollo de la capa social.
 4. El multijugador se incorpora mediante módulos desacoplados; no se mezclará lógica de red con los catálogos narrativos.
 5. Mantener las pruebas actuales de datos y arranque, y añadir pruebas específicas para cada nueva función.
+6. No declarar aprobada la jugabilidad sin completar las pruebas manuales W-01 a W-10 del plan de validación.
 
 > El contenido narrativo de esta fase está marcado como propuesta editorial hasta que se apruebe como canon.
