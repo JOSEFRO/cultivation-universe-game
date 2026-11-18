@@ -121,6 +121,16 @@ func _build_interface() -> void:
 	codex_button.pressed.connect(_on_codex_pressed)
 	buttons.add_child(codex_button)
 
+	var prologue_button := Button.new()
+	prologue_button.name = "PrologueButton"
+	prologue_button.text = "  EXPLORAR EL PRÓLOGO  "
+	prologue_button.custom_minimum_size = Vector2(220, 48)
+	prologue_button.add_theme_color_override("font_color", Color("#e9e5dc"))
+	prologue_button.add_theme_stylebox_override("normal", _button_style(Color("#183a3a"), Color("#72c7b5")))
+	prologue_button.add_theme_stylebox_override("hover", _button_style(Color("#24544f"), Color("#a5f0d9")))
+	prologue_button.pressed.connect(_on_prologue_pressed)
+	buttons.add_child(prologue_button)
+
 	status_label = Label.new()
 	status_label.text = "EL VIAJE AÚN NO HA COMENZADO"
 	status_label.add_theme_font_size_override("font_size", 10)
@@ -265,3 +275,7 @@ func _on_codex_pressed() -> void:
 	for root in WORLD_DATA.ROOTS:
 		names.append(root["name"])
 	status_label.text = "RAÍCES: " + " · ".join(names)
+
+
+func _on_prologue_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/prologue_3d.tscn")
