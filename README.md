@@ -85,3 +85,21 @@ El proyecto evoluciona por etapas. Las sugerencias y reportes de errores son bie
   <strong>SIETE RAÍCES</strong><br>
   <em>El camino no está escrito. Se cultiva.</em>
 </p>
+
+
+## Primer prólogo explorable
+
+La rama de desarrollo del primer prólogo añade una zona 3D construida con recursos geométricos provisionales del propio motor, sin depender de descargas externas para arrancar:
+
+- Valle del Primer Alba con montañas, arboledas, camino de piedra, islas suspendidas y santuario.
+- Cultivador 3D provisional con cámara de seguimiento.
+- Movimiento con **WASD** o flechas.
+- Primer encuentro interactivo: acércate al Guardián del Primer Umbral y pulsa **E**.
+- **Esc** regresa al menú.
+- HUD con objetivo de misión y controles.
+
+Este recorrido es un *vertical slice* inicial: demuestra entrada al mundo, desplazamiento, escenario, interacción y una misión sencilla. Los modelos geométricos son placeholders deliberados; todavía no representan los modelos finales de personajes, animaciones, combate, inventario ni mundo abierto.
+
+## Decisiones sobre los complementos investigados
+
+Consulta [TECH_STACK_DECISIONS.md](docs/TECH_STACK_DECISIONS.md) para ver qué proyectos conviene integrar, cuáles requieren pruebas y cuáles se reservan para fases posteriores.
