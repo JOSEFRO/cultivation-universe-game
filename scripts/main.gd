@@ -173,6 +173,9 @@ func _add_starfield() -> void:
 		star.add_theme_color_override("font_color", Color("#d9c18e", 0.55 if i % 2 == 0 else 0.28))
 		star.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(star)
+		var twinkle := create_tween().set_loops()
+		twinkle.tween_property(star, "modulate:a", 0.22, 1.2 + float(i % 4) * 0.22).from(0.9)
+		twinkle.tween_property(star, "modulate:a", 0.9, 1.4 + float(i % 3) * 0.2)
 
 func _add_orbit(center_x: float, center_y: float, width: float, height: float, tint: Color, angle: float) -> void:
 	var ring := Panel.new()
@@ -187,6 +190,8 @@ func _add_orbit(center_x: float, center_y: float, width: float, height: float, t
 	ring.rotation = angle
 	ring.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(ring)
+	var orbit_tween := create_tween().set_loops()
+	orbit_tween.tween_property(ring, "rotation", angle + TAU, 110.0).from(angle).set_trans(Tween.TRANS_LINEAR)
 
 func _add_mountain_layer(x: float, y: float, width: float, height: float, tint: Color) -> void:
 	var mountain := Polygon2D.new()
