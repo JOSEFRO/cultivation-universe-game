@@ -159,7 +159,7 @@ func _add_starfield() -> void:
 		Vector2(1010, 245), Vector2(890, 80), Vector2(430, 350), Vector2(1180, 390),
 		Vector2(170, 390), Vector2(650, 90), Vector2(760, 410), Vector2(1040, 520)
 	]
-	for i in positions.size():
+	for i in range(positions.size()):
 		var star := Label.new()
 		star.text = "✦" if i % 3 == 0 else "·"
 		star.position = positions[i]
@@ -192,7 +192,6 @@ func _add_mountain_layer(x: float, y: float, width: float, height: float, tint: 
 		Vector2(width, height * 0.52), Vector2(width, height)
 	])
 	mountain.color = tint
-	mountain.z_index = -1
 	add_child(mountain)
 
 func _on_begin_pressed() -> void:
