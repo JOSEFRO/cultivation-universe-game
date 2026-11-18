@@ -75,7 +75,7 @@ La dirección visual busca una presentación cinematográfica en **3D**, con cá
 4. Integrar y probar guardado/carga.
 5. Realizar pruebas visuales y de jugabilidad antes de publicar una versión jugable.
 
-## Participación
+## Arquitectura del producto\n\nEste repositorio contiene el videojuego jugable desarrollado en Godot. Combate, IA, NPC, movimiento, inventario, misiones, progresión, mundo explorable, física y guardado pertenecen exclusivamente a este producto. El portal oficial y comunitario es un proyecto separado: [cultivation-universe-web](https://github.com/JOSEFRO/cultivation-universe-web). Consulta [docs/PRODUCT_ARCHITECTURE.md](docs/PRODUCT_ARCHITECTURE.md) para los límites y módulos.\n\n## Participación
 
 El proyecto evoluciona por etapas. Las sugerencias y reportes de errores son bienvenidos mediante la sección [Issues](https://github.com/JOSEFRO/cultivation-universe-game/issues).
 
