@@ -23,11 +23,11 @@ Evaluación de los complementos propuestos para el prototipo Godot 4.7.2. La pri
 
 1. Prólogo jugable y controles básicos.
 2. Datos de misiones y diálogos con Dialogue Manager.
-3. Inventario y objetos con GLoot.
-4. Cámara cinematográfica con Phantom Camera.
+3. Inventario y objetos: validar Wyvernbox (#1919) frente a GLoot en una escena aislada; elegir uno, no ambos.
+4. Cámara de juego con Phantom Camera, probada con el controlador real.
 5. Región extensa con Terrain3D.
-6. Vegetación y decoración procedural con ProtonScatter.
-7. Ciclo día/noche y persistencia entre regiones.
+6. Vegetación y decoración procedural con ProtonScatter, solo dentro del juego.
+7. Ciclo día/noche, guardado/carga y persistencia entre regiones.
 8. Evaluar Skelerealms o Pandora solo cuando el diseño de facciones, actores y datos esté estabilizado.
 
 ## Regla de integración
