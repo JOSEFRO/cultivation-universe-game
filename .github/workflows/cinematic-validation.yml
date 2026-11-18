@@ -24,3 +24,5 @@ jobs:
         run: godot --headless --editor --path . --quit
       - name: Launch main scene headlessly
         run: godot --headless --path . --quit-after 10
+      - name: Run main scene integration tests
+        run: godot --headless --path . --script res://tests/test_main_scene.gd
