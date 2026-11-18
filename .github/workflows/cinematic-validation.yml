@@ -1,0 +1,26 @@
+name: Godot cinematic scene validation
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [redesign/cinematic-2026]
+
+jobs:
+  validate-game:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Godot 4.7.2
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: 4.7.2
+          use-dotnet: false
+          include-templates: false
+      - name: Verify engine version
+        run: godot --version | grep -F "4.7.2"
+      - name: Import and parse project
+        run: godot --headless --editor --path . --quit
+      - name: Launch main scene headlessly
+        run: godot --headless --path . --quit-after 10
