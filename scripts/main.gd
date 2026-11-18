@@ -3,6 +3,10 @@ extends Control
 const WORLD_DATA = preload("res://scripts/world_data.gd")
 
 var status_label: Label
+var character_dialog: ConfirmationDialog
+var character_name_input: LineEdit
+var cultivation_path_select: OptionButton
+var current_character: Dictionary = {}
 
 func _ready() -> void:
 	_build_interface()
@@ -97,6 +101,7 @@ func _build_interface() -> void:
 	layout.add_child(buttons)
 
 	var begin_button := Button.new()
+	begin_button.name = "BeginButton"
 	begin_button.text = "  INICIAR CAMINO  "
 	begin_button.custom_minimum_size = Vector2(190, 48)
 	begin_button.add_theme_color_override("font_color", Color("#07111a"))
@@ -107,6 +112,7 @@ func _build_interface() -> void:
 	buttons.add_child(begin_button)
 
 	var codex_button := Button.new()
+	codex_button.name = "CodexButton"
 	codex_button.text = "  VER LAS SIETE RAÍCES  "
 	codex_button.custom_minimum_size = Vector2(220, 48)
 	codex_button.add_theme_color_override("font_color", Color("#e9e5dc"))
@@ -195,7 +201,59 @@ func _add_mountain_layer(x: float, y: float, width: float, height: float, tint: 
 	add_child(mountain)
 
 func _on_begin_pressed() -> void:
-	status_label.text = "CREACIÓN DE PERSONAJE: PRÓXIMO MÓDULO EN DESARROLLO"
+	if character_dialog and is_instance_valid(character_dialog):
+		character_dialog.popup_centered()
+		return
+	character_dialog = ConfirmationDialog.new()
+	character_dialog.name = "CharacterCreationDialog"
+	character_dialog.title = "Forja tu identidad"
+	character_dialog.dialog_text = "Tu camino comienza con una decisión."
+	character_dialog.ok_button_text = "CREAR PERSONAJE"
+	character_dialog.cancel_button_text = "VOLVER"
+	var form := VBoxContainer.new()
+	form.name = "CharacterCreationForm"
+	form.custom_minimum_size = Vector2(360, 120)
+	character_dialog.add_child(form)
+	var name_label := Label.new()
+	name_label.text = "Nombre del cultivador"
+	form.add_child(name_label)
+	character_name_input = LineEdit.new()
+	character_name_input.name = "CharacterNameInput"
+	character_name_input.placeholder_text = "Escribe tu nombre"
+	character_name_input.max_length = 24
+	form.add_child(character_name_input)
+	var path_label := Label.new()
+	path_label.text = "Camino inicial"
+	form.add_child(path_label)
+	cultivation_path_select = OptionButton.new()
+	cultivation_path_select.name = "CultivationPathSelect"
+	for path in WORLD_DATA.CULTIVATION_PATHS:
+		cultivation_path_select.add_item(path)
+	form.add_child(cultivation_path_select)
+	character_dialog.confirmed.connect(_create_character)
+	add_child(character_dialog)
+	character_dialog.popup_centered()
+
+func _create_character() -> void:
+	var character_name := character_name_input.text.strip_edges()
+	if character_name.is_empty():
+		status_label.text = "ESCRIBE UN NOMBRE PARA TU CULTIVADOR"
+		character_name_input.grab_focus()
+		return
+	current_character = {
+		"name": character_name,
+		"path": cultivation_path_select.get_item_text(cultivation_path_select.selected),
+		"realm": "Sin despertar",
+		"created_at": Time.get_datetime_string_from_system()
+	}
+	var save_file := FileAccess.open("user://character.json", FileAccess.WRITE)
+	if save_file == null:
+		status_label.text = "NO SE PUDO GUARDAR EL PERSONAJE"
+		return
+	save_file.store_string(JSON.stringify(current_character, "\t"))
+	save_file.close()
+	character_dialog.hide()
+	status_label.text = "CAMINO INICIADO · " + character_name.to_upper() + " · " + current_character["path"].to_upper()
 
 func _on_codex_pressed() -> void:
 	var names: Array[String] = []
