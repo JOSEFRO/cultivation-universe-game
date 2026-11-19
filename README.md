@@ -1,5 +1,9 @@
 # SIETE RAÍCES
 
+<p align="center"><img src="https://d8j0ntlcm91z4.cloudfront.net/user_3MJ8xX039ib9919oo3CFVd7NjMx/hf_20261119_141641_b791490c-cf19-4121-bbc9-0b413628b00b.webp" alt="Arte conceptual de exploración para el RPG Siete Raíces" width="100%"></p>
+
+> **Arte conceptual de presentación generado para este repositorio.** No es una captura del prototipo jugable ni representa mecánicas ya implementadas.
+
 <p align="center">
   <strong>Un RPG de cultivo, fantasía oriental y exploración de reinos.</strong><br>
   <em>Proyecto independiente en desarrollo activo.</em>
