@@ -103,3 +103,38 @@ Este recorrido es un *vertical slice* inicial: demuestra entrada al mundo, despl
 ## Decisiones sobre los complementos investigados
 
 Consulta [TECH_STACK_DECISIONS.md](docs/TECH_STACK_DECISIONS.md) para ver qué proyectos conviene integrar, cuáles requieren pruebas y cuáles se reservan para fases posteriores.
+
+
+## Galería visual del desarrollo
+
+Esta galería reúne referencias originales que guían la creación del mundo, el personaje y el bestiario. Las animaciones son pruebas de atmósfera/VFX; no son modelos 3D ni gameplay final.
+
+### Mundo y escenarios
+
+<p align="center">
+  <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3MJ8xX039ib9919oo3CFVd7NjMx/hf_20261119_134249_59abc2dd-1837-48f6-bd1d-119d8f60b0df.png" alt="Panorama del mundo de Siete Raíces" width="100%">
+</p>
+
+<p align="center">
+  <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3MJ8xX039ib9919oo3CFVd7NjMx/hf_20261119_134248_65b171d0-1be6-4b2e-833f-a533db8da71a.png" alt="Santuario antiguo y valle de cultivo" width="80%">
+</p>
+
+<p align="center">
+  <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3MJ8xX039ib9919oo3CFVd7NjMx/hf_20261119_135839_bb2de992-a88f-4fce-b217-f0191767ecc7.gif" alt="Ambiente animado con energía espiritual" width="80%">
+</p>
+
+### Personaje protagonista y criatura espiritual
+
+<p align="center">
+  <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3MJ8xX039ib9919oo3CFVd7NjMx/hf_20261119_134248_61a28044-93c1-4e96-8246-2aaeb7467b94.png" alt="Concept art del cultivador protagonista" width="42%">
+  <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3MJ8xX039ib9919oo3CFVd7NjMx/hf_20261119_134247_68136778-923c-41c4-a409-3f6a979ddc3c.png" alt="Concept art de la criatura guardiana" width="42%">
+</p>
+
+### Pruebas de VFX animados
+
+<p align="center">
+  <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3MJ8xX039ib9919oo3CFVd7NjMx/hf_20261119_140607_d3357ddf-5e5d-485f-8558-0815f4242ecf.gif" alt="Aura espiritual animada del protagonista" width="42%">
+  <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3MJ8xX039ib9919oo3CFVd7NjMx/hf_20261119_140559_bb487f77-8263-40cb-8be0-6efcaf89be75.gif" alt="Aura espiritual animada de la criatura" width="42%">
+</p>
+
+**Objetivo de integración:** convertir estas referencias en recursos locales de assets/art/ y recrear los efectos interactivos mediante partículas, materiales emisivos y animaciones nativas de Godot. Las imágenes/GIF alojados externamente son una vista previa documental y no una dependencia necesaria para ejecutar el juego.
