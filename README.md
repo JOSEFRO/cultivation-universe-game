@@ -1,113 +1,120 @@
+<div align="center">
+
+<img src="https://d8j0ntlcm91z4.cloudfront.net/user_3MJ8xX039ib9919oo3CFVd7NjMx/hf_20261119_141641_b791490c-cf19-4121-bbc9-0b413628b00b.webp" alt="Arte conceptual del videojuego Siete Raíces" width="100%">
+
 # SIETE RAÍCES
 
-<p align="center"><img src="https://d8j0ntlcm91z4.cloudfront.net/user_3MJ8xX039ib9919oo3CFVd7NjMx/hf_20261119_141641_b791490c-cf19-4121-bbc9-0b413628b00b.webp" alt="Arte conceptual de exploración para el RPG Siete Raíces" width="100%"></p>
+**RPG de fantasía y cultivo desarrollado como videojuego independiente en Godot.**
 
-> **Arte conceptual de presentación generado para este repositorio.** No es una captura del prototipo jugable ni representa mecánicas ya implementadas.
+![Estado](https://img.shields.io/badge/estado-prototipo%20en%20desarrollo-orange)
+![Godot](https://img.shields.io/badge/Godot-4.x-478CBF?logo=godotengine)
+![Lenguaje](https://img.shields.io/badge/lenguaje-GDScript-478CBF)
+![Objetivo](https://img.shields.io/badge/plataforma%20objetivo-Windows-0078D6?logo=windows)
 
-<p align="center">
-  <strong>Un RPG de cultivo, fantasía oriental y exploración de reinos.</strong><br>
-  <em>Proyecto independiente en desarrollo activo.</em>
-</p>
+[Repositorio del juego](https://github.com/JOSEFRO/cultivation-universe-game) · [Portal oficial](https://github.com/JOSEFRO/cultivation-universe-web) · [Incidencias](https://github.com/JOSEFRO/cultivation-universe-game/issues)
 
-<p align="center">
-  <img alt="Estado: En desarrollo" src="https://img.shields.io/badge/ESTADO-EN%20DESARROLLO-orange?style=for-the-badge">
-  <img alt="Motor: Godot 4.7.2" src="https://img.shields.io/badge/GODOT-4.7.2-478CBF?style=for-the-badge&logo=godotengine&logoColor=white">
-  <img alt="Plataforma objetivo: Windows" src="https://img.shields.io/badge/PLATAFORMA-WINDOWS-0078D6?style=for-the-badge&logo=windows&logoColor=white">
-</p>
+</div>
 
-**Siete Raíces** es un RPG de cultivo ambientado en un universo de fantasía original. El jugador recorrerá territorios misteriosos, descubrirá su potencial, conocerá maestros y sectas, y tomará decisiones que influirán en su camino.
+## 1. Visión del producto
 
-> **Aviso:** el proyecto está en construcción. Las mecánicas, escenarios, personajes, interfaz y contenido pueden cambiar. No representa todavía una versión final.
+Siete Raíces es un RPG ambientado en un universo original de fantasía y cultivo. El jugador podrá explorar territorios, descubrir su potencial, conocer personajes y organizaciones, completar desafíos y construir su propio camino.
 
-## Estado del desarrollo
+El proyecto se encuentra en desarrollo. El contenido, los sistemas, el arte y las mecánicas pueden cambiar durante la producción.
 
-| Área | Estado |
+## 2. Alcance del videojuego
+
+Este repositorio contiene el producto jugable y es responsable de:
+
+- Movimiento y control del personaje.
+- Cámara y exploración.
+- Interacción con el mundo y sus personajes.
+- Misiones, diálogos y decisiones.
+- Progresión, habilidades e inventario.
+- Sistemas de combate cuando se implementen.
+- Guardado y carga.
+- Interfaz de juego y accesibilidad.
+- Gestión de escenas, recursos y rendimiento.
+
+El portal web es un producto independiente y no debe alojar ni simular estas mecánicas.
+
+## 3. Motor y plataforma
+
+- Motor: Godot Engine 4.x.
+- Lenguaje: GDScript.
+- Escenas y recursos nativos de Godot.
+- Control de versiones: Git y GitHub.
+- Plataforma objetivo inicial: Windows.
+
+La versión exacta del motor debe coincidir con la configuración y el flujo de validación del repositorio. Comprueba la versión indicada por el proyecto antes de importar o exportar.
+
+## 4. Estado del desarrollo
+
+| Área | Estado documentado |
 |---|---|
-| Proyecto base en Godot | En desarrollo |
-| Diseño del universo y progresión | En desarrollo |
-| Cinco regiones iniciales | Prototipos en validación |
-| Personaje y presentación 3D | Prototipo visual |
-| Misiones, diálogos y decisiones | En desarrollo |
+| Proyecto base | Disponible |
+| Diseño del universo | En desarrollo |
+| Regiones iniciales | Prototipos en validación |
+| Presentación 3D | Prototipo |
+| Misiones y diálogos | En desarrollo |
 | Guardado y carga | Pendiente de integración y pruebas |
-| Interfaz y experiencia de usuario | En desarrollo |
-| Compilación para Windows | Prueba automatizada realizada en rama de validación |
-| Prueba visual y de juego en Windows real | Pendiente |
+| Interfaz | En desarrollo |
+| Prueba completa en Windows | Pendiente de validación manual |
 
-### Validación técnica
+Los recursos conceptuales y los placeholders no deben presentarse como contenido final ni como mecánicas terminadas.
 
-Se ejecutó una validación automatizada con **Godot 4.7.2** en la rama `test/godot-4.7.2-validation`. La ejecución comprobó la importación del proyecto, la instanciación de las cinco escenas regionales, el arranque de la escena principal y la exportación de Windows.
+## 5. Abrir el proyecto
 
-Esto confirma que el proceso de compilación automatizado terminó correctamente; **no significa que todas las funciones estén terminadas ni que el juego haya superado todavía una prueba visual completa en un equipo Windows**.
+1. Instala una versión compatible de Godot 4.
+2. Clona el repositorio:
 
-- [Consultar la validación en GitHub Actions](https://github.com/JOSEFRO/cultivation-universe-game/actions)
-- [Consultar cambios en revisión](https://github.com/JOSEFRO/cultivation-universe-game/pulls)
-- [Consultar el historial del proyecto](https://github.com/JOSEFRO/cultivation-universe-game/commits)
+```bash
+git clone https://github.com/JOSEFRO/cultivation-universe-game.git
+```
 
-## Visión del juego
+3. Abre Godot Project Manager.
+4. Selecciona **Importar** y elige `project.godot`.
+5. Espera la importación de recursos y ejecuta la escena principal.
 
-- Crear y desarrollar un cultivador con identidad y potencial propios.
-- Explorar cinco grandes regiones y descubrir sus secretos.
-- Participar en la Ceremonia de los Siete Juicios.
-- Conocer maestros, personajes y organizaciones con sus propios intereses.
-- Elegir un camino independiente o vincularse a una secta.
-- Completar misiones, descubrir herencias y tomar decisiones con consecuencias.
+## 6. Validación
 
-## Dirección artística
+Antes de distribuir una build:
 
-La dirección visual busca una presentación cinematográfica en **3D**, con cámara en perspectiva 3/4, personajes de fantasía oriental, templos, pagodas, montañas, bosques de bambú, jardines y paisajes de gran escala. Los recursos provisionales se irán sustituyendo y refinando durante el desarrollo.
+- Importar el proyecto sin errores.
+- Ejecutar la escena principal.
+- Comprobar entradas, cámara y transiciones.
+- Verificar colisiones e interacciones.
+- Probar guardado y carga cuando estén integrados.
+- Revisar errores y advertencias de GDScript.
+- Exportar para Windows y ejecutar la build resultante.
+- Realizar pruebas visuales y de jugabilidad en hardware real.
 
-## Tecnología
+Las ejecuciones automatizadas se pueden consultar en [GitHub Actions](https://github.com/JOSEFRO/cultivation-universe-game/actions). Un workflow exitoso no sustituye la prueba de la build exportada.
 
-- **Motor:** Godot 4.7.2
-- **Lenguaje:** GDScript
-- **Plataforma objetivo inicial:** Windows
-- **Control de versiones:** Git y GitHub
+## 7. Arquitectura y buenas prácticas
 
-## Cómo abrir el proyecto
+- Separar datos, lógica de juego, presentación e interfaz.
+- Mantener escenas y scripts con responsabilidades claras.
+- Evitar dependencias circulares entre sistemas.
+- Centralizar configuración y recursos compartidos.
+- Gestionar señales y referencias de nodos de forma segura.
+- Documentar controles, estados y transiciones.
+- Optimizar modelos, materiales, texturas y efectos según presupuesto de rendimiento.
 
-1. Instala Godot 4.7.2 o una versión compatible de Godot 4.
-2. Clona o descarga este repositorio.
-3. Abre el gestor de proyectos de Godot y selecciona **Importar**.
-4. Selecciona el archivo `project.godot`.
-5. Espera a que Godot importe los recursos y ejecuta el proyecto.
+## 8. Hoja de ruta técnica
 
-## Próximas prioridades
+1. Consolidar el prólogo jugable y el flujo de escenas.
+2. Estabilizar movimiento, cámara e interacción.
+3. Integrar diálogos y misiones iniciales.
+4. Diseñar progresión y sistemas de juego modulares.
+5. Implementar guardado/carga con pruebas.
+6. Sustituir placeholders de forma gradual.
+7. Preparar builds reproducibles y pruebas en Windows.
 
-1. Consolidar la escena principal y la transición entre regiones.
-2. Mejorar los modelos, animaciones y presentación del personaje.
-3. Desarrollar misiones, diálogos y progresión inicial.
-4. Integrar y probar guardado/carga.
-5. Realizar pruebas visuales y de jugabilidad antes de publicar una versión jugable.
+## 9. Separación con el portal web
 
-## Arquitectura del producto
+- [Portal Siete Raíces](https://github.com/JOSEFRO/cultivation-universe-web): presentación, lore, galería y noticias.
+- Este repositorio: videojuego, gameplay, escenas y sistemas interactivos jugables.
 
-Este repositorio contiene el videojuego desarrollado en Godot. Combate, IA, NPC, movimiento, inventario, misiones, progresión, mundo explorable, física y guardado pertenecen exclusivamente a este producto. El portal oficial y comunitario es un proyecto separado: [cultivation-universe-web](https://github.com/JOSEFRO/cultivation-universe-web). Consulta [docs/PRODUCT_ARCHITECTURE.md](docs/PRODUCT_ARCHITECTURE.md) para los límites y módulos.
+## 10. Licencia
 
-## Participación
-
-El proyecto evoluciona por etapas. Las sugerencias y reportes de errores son bienvenidos mediante la sección [Issues](https://github.com/JOSEFRO/cultivation-universe-game/issues).
-
----
-
-<p align="center">
-  <strong>SIETE RAÍCES</strong><br>
-  <em>El camino no está escrito. Se cultiva.</em>
-</p>
-
-
-## Primer prólogo explorable
-
-La rama de desarrollo del primer prólogo añade una zona 3D construida con recursos geométricos provisionales del propio motor, sin depender de descargas externas para arrancar:
-
-- Valle del Primer Alba con montañas, arboledas, camino de piedra, islas suspendidas y santuario.
-- Cultivador 3D provisional con cámara de seguimiento.
-- Movimiento con **WASD** o flechas.
-- Primer encuentro interactivo: acércate al Guardián del Primer Umbral y pulsa **E**.
-- **Esc** regresa al menú.
-- HUD con objetivo de misión y controles.
-
-Este recorrido es un *vertical slice* inicial: demuestra entrada al mundo, desplazamiento, escenario, interacción y una misión sencilla. Los modelos geométricos son placeholders deliberados; todavía no representan los modelos finales de personajes, animaciones, combate, inventario ni mundo abierto.
-
-## Decisiones sobre los complementos investigados
-
-Consulta [TECH_STACK_DECISIONS.md](docs/TECH_STACK_DECISIONS.md) para ver qué proyectos conviene integrar, cuáles requieren pruebas y cuáles se reservan para fases posteriores.
+No se ha incorporado una licencia de reutilización. El código, los diseños y los recursos permanecen reservados a su titular salvo autorización expresa.
