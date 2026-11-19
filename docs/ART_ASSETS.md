@@ -15,3 +15,23 @@ Generated original concept-art references for the project's visual direction. Th
 - The web portal may display the hosted image references directly.
 - For the Godot game, download approved originals into this repository under `assets/art/world/`, `assets/art/characters/`, and `assets/art/creatures/`; then import them through Godot's asset pipeline.
 - Keep final game assets local to the repository so builds do not depend on a third-party image host.
+
+
+## Animated spiritual ambience
+
+- **Animated hero atmosphere (8-frame seamless GIF):** https://d8j0ntlcm91z4.cloudfront.net/user_3MJ8xX039ib9919oo3CFVd7NjMx/hf_20261119_135839_bb2de992-a88f-4fce-b217-f0191767ecc7.gif
+- Intended use: menu background, loading-screen atmosphere, or visual reference for the in-game spirit-energy effect.
+- This GIF is a 2D ambience asset, not a 3D animation or a rigged character.
+
+## Low-cost Godot VFX implementation
+
+Use the existing creature concept as the visual reference and build the real-time effect natively in Godot rather than generating another paid video:
+
+1. Add a GPUParticles3D node around the creature, with a small spherical emission volume and low particle count.
+2. Use small cyan emissive particles with varied lifetime and upward velocity; keep the effect subtle so the creature remains readable.
+3. Add a thin MeshInstance3D torus around the feet with a cyan emissive material. Animate its scale and alpha with an AnimationPlayer for a slow pulse.
+4. Add a second, larger ring at a different rotation for parallax; avoid fast flashes and avoid covering the creature silhouette.
+5. Expose particle amount, glow strength, and ring speed as exported settings so the effect can be tuned for lower-end hardware.
+6. For accessibility and performance, provide a reduced-effects setting and disable the particles when the scene is not visible.
+
+Keep the GIF for menus or reference only. Use native particles and meshes for interactive gameplay effects.
