@@ -1,0 +1,17 @@
+# Concept art library — Siete Raíces
+
+Generated original concept-art references for the project's visual direction. These are hosted image references; import the files into `assets/art/` before shipping a standalone game build.
+
+## World and environments
+- **Hero / floating-island panorama:** https://d8j0ntlcm91z4.cloudfront.net/user_3MJ8xX039ib9919oo3CFVd7NjMx/hf_20261119_134249_59abc2dd-1837-48f6-bd1d-119d8f60b0df.png
+- **Ancient sanctuary valley:** https://d8j0ntlcm91z4.cloudfront.net/user_3MJ8xX039ib9919oo3CFVd7NjMx/hf_20261119_134248_65b171d0-1be6-4b2e-833f-a533db8da71a.png
+
+## Characters and creatures
+- **Cultivator protagonist concept:** https://d8j0ntlcm91z4.cloudfront.net/user_3MJ8xX039ib9919oo3CFVd7NjMx/hf_20261119_134248_61a28044-93c1-4e96-8246-2aaeb7467b94.png
+- **Celestial spirit beast concept:** https://d8j0ntlcm91z4.cloudfront.net/user_3MJ8xX039ib9919oo3CFVd7NjMx/hf_20261119_134247_68136778-923c-41c4-a409-3f6a979ddc3c.png
+
+## Integration notes
+- These images are concept references, not rigged 3D models, sprite sheets, or animation assets.
+- The web portal may display the hosted image references directly.
+- For the Godot game, download approved originals into this repository under `assets/art/world/`, `assets/art/characters/`, and `assets/art/creatures/`; then import them through Godot's asset pipeline.
+- Keep final game assets local to the repository so builds do not depend on a third-party image host.
