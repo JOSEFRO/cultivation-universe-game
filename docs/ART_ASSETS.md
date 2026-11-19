@@ -35,3 +35,11 @@ Use the existing creature concept as the visual reference and build the real-tim
 6. For accessibility and performance, provide a reduced-effects setting and disable the particles when the scene is not visible.
 
 Keep the GIF for menus or reference only. Use native particles and meshes for interactive gameplay effects.
+
+
+## Animated character and creature VFX previews
+
+- **Cultivator aura loop:** https://d8j0ntlcm91z4.cloudfront.net/user_3MJ8xX039ib9919oo3CFVd7NjMx/hf_20261119_140607_d3357ddf-5e5d-485f-8558-0815f4242ecf.gif
+- **Spirit beast aura loop:** https://d8j0ntlcm91z4.cloudfront.net/user_3MJ8xX039ib9919oo3CFVd7NjMx/hf_20261119_140559_bb487f77-8263-40cb-8be0-6efcaf89be75.gif
+- Both are short 2D visual previews generated from the approved concept images. They are not skeletal animations, 3D models, or production-ready gameplay effects.
+- Use them in README/devlog previews; recreate interactive versions in Godot with GPUParticles3D, emissive materials, rings and AnimationPlayer.
